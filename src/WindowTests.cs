@@ -52,7 +52,9 @@ namespace MoonCalendar
                         NativeWindows.Rect bounds;
                         NativeWindows.GetWindowRect(new WindowInteropHelper(calendar.Window).Handle, out bounds);
                         var center = new NativeWindows.Point { X = (bounds.Left + bounds.Right) / 2, Y = (bounds.Top + bounds.Bottom) / 2 };
-                        check("弹窗在其他窗口上方可见", NativeWindows.RootAt(center) == new WindowInteropHelper(calendar.Window).Handle);
+                        bool inFront = NativeWindows.RootAt(center) == new WindowInteropHelper(calendar.Window).Handle;
+                        check("弹窗在其他窗口上方可见", inFront);
+                        if (!inFront) results.Add(new { diagnostic = "popup-front", window = NativeWindows.WindowStatus(new WindowInteropHelper(calendar.Window).Handle), coveringClass = NativeWindows.ClassOf(NativeWindows.RootAt(center)) });
                         calendar.DismissOnOutsideClick(center);
                         check("点击弹窗内部保持显示", Visible(calendar.Window));
                         var dialog = new Window { Title = "日历对话框回归测试", Owner = calendar.Window, Width = 220, Height = 120, ShowInTaskbar = false, WindowStartupLocation = WindowStartupLocation.CenterOwner };
@@ -81,6 +83,7 @@ namespace MoonCalendar
                         blocker.Activate();
                         await Task.Delay(100);
                         check("切换到其他窗口后收起", !calendar.Window.IsVisible);
+                        if (calendar.Window.IsVisible) results.Add(new { diagnostic = "deactivation", window = NativeWindows.WindowStatus(new WindowInteropHelper(calendar.Window).Handle), blocker = NativeWindows.WindowStatus(new WindowInteropHelper(blocker).Handle) });
                     }
                     finally { blocker.Close(); }
                     results.Add(new { loadCount = calendar.LoadCount });

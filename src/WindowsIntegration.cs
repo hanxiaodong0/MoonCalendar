@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Automation;
 using System.Windows.Interop;
@@ -139,48 +140,148 @@ namespace MoonCalendar
         private readonly Dispatcher dispatcher;
         private readonly Action<ClockTarget> show;
         private readonly Action<NativeWindows.Point> outsideClick;
-        private readonly ManualResetEvent stop = new ManualResetEvent(false);
+        private readonly ManualResetEventSlim stop = new ManualResetEventSlim(false);
         private readonly NativeWindows.MouseProc callback;
+        private readonly bool diagnostics;
+        private readonly bool discoverTargets;
+        private readonly int renewalMilliseconds;
         private volatile ClockTarget[] targets = new ClockTarget[0];
+        private volatile Dispatcher hookDispatcher;
+        private Thread hookThread;
+        private Thread discoveryThread;
         private IntPtr hook;
         private bool suppressRelease;
         private ClockTarget pressed;
         private int interceptedClicks;
-        private bool disposed;
+        private int started;
+        private int disposeRequested;
+        private int statusPending;
+        private int renewals;
+        private int hookError;
+        private long heartbeatTicks;
+        private long lastRenewal;
+        private bool Disposed { get { return Volatile.Read(ref disposeRequested) != 0; } }
+        internal int WorkerThreadId { get { return hookThread == null ? 0 : hookThread.ManagedThreadId; } }
+        internal int RenewalCount { get { return Volatile.Read(ref renewals); } }
+        internal bool WorkerAlive { get { return hookThread != null && hookThread.IsAlive; } }
+        internal bool HookInstalled { get { return !Disposed && hook != IntPtr.Zero && WorkerAlive; } }
         public string StatusText
         {
-            get { return hook == IntPtr.Zero ? "任务栏入口暂未接管，可从托盘打开。" : targets.Length == 0 ? "正在识别任务栏时钟；暂可从托盘打开。" : "任务栏时钟已接管；退出程序即恢复系统日历。"; }
+            get { return Disposed ? "任务栏入口已停用，Windows 日历已恢复。" : !HookInstalled ? "任务栏入口正在恢复，可从托盘打开。" : targets.Length == 0 ? "正在识别任务栏时钟；暂可从托盘打开。" : "任务栏时钟入口已启用；退出程序即恢复系统日历。"; }
         }
-        public TaskbarClockIntegration(Dispatcher dispatcher, Action<ClockTarget> show, Action<NativeWindows.Point> outsideClick)
+        public TaskbarClockIntegration(Dispatcher dispatcher, Action<ClockTarget> show, Action<NativeWindows.Point> outsideClick) : this(dispatcher, show, outsideClick, true, true, 30000) { }
+        internal TaskbarClockIntegration(Dispatcher dispatcher, Action<ClockTarget> show, Action<NativeWindows.Point> outsideClick, bool discoverTargets, bool diagnostics, int renewalMilliseconds)
         {
             this.dispatcher = dispatcher; this.show = show; this.outsideClick = outsideClick; callback = OnMouse;
+            this.discoverTargets = discoverTargets; this.diagnostics = diagnostics; this.renewalMilliseconds = renewalMilliseconds;
         }
         public void Start()
         {
-            hook = NativeWindows.SetWindowsHookEx(14, callback, NativeWindows.GetModuleHandle(null), 0);
-            if (hook == IntPtr.Zero) { Storage.Log(new Win32Exception(Marshal.GetLastWin32Error(), "无法接管任务栏时钟")); PublishStatus(); return; }
-            var thread = new Thread(() =>
+            if (Disposed) throw new ObjectDisposedException("TaskbarClockIntegration");
+            if (Interlocked.Exchange(ref started, 1) != 0) return;
+            hookThread = new Thread(HookLoop) { IsBackground = true, Name = "Calendar mouse hook message loop" };
+            hookThread.SetApartmentState(ApartmentState.STA); hookThread.Start();
+            if (!discoverTargets) return;
+            discoveryThread = new Thread(() =>
             {
-                string previous = null;
-                while (!stop.WaitOne(0))
+                try
                 {
-                    try
+                    string previous = null;
+                    while (!stop.IsSet)
                     {
-                        var found = TaskbarClockDetector.Scan(); targets = found;
-                        string signature = String.Join(";", found.Select(t => t.TaskbarHandle.ToInt64() + ":" + t.Left + "," + t.Top + "," + t.Right + "," + t.Bottom));
-                        if (signature != previous) { previous = signature; dispatcher.BeginInvoke(new Action(PublishStatus)); }
+                        try
+                        {
+                            var found = TaskbarClockDetector.Scan(); targets = found;
+                            string signature = String.Join(";", found.Select(t => t.TaskbarHandle.ToInt64() + ":" + t.Left + "," + t.Top + "," + t.Right + "," + t.Bottom));
+                            if (signature != previous) { previous = signature; RequestRenewal(); QueueStatus(); }
+                        }
+                        catch (Exception error) { QueueUi(() => Storage.Log(error)); }
+                        if (stop.Wait(3000)) break;
                     }
-                    catch (Exception error) { Storage.Log(error); }
-                    if (stop.WaitOne(3000)) break;
                 }
+                finally { stop.Dispose(); }
             }) { IsBackground = true, Name = "Calendar taskbar clock discovery" };
-            thread.SetApartmentState(ApartmentState.MTA); thread.Start();
+            discoveryThread.SetApartmentState(ApartmentState.MTA); discoveryThread.Start();
+        }
+        private void HookLoop()
+        {
+            DispatcherTimer watchdog = null;
+            try
+            {
+                hookDispatcher = Dispatcher.CurrentDispatcher;
+                if (Disposed) return;
+                RenewHook();
+                watchdog = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(Math.Min(3000, Math.Max(100, renewalMilliseconds / 2))) };
+                watchdog.Tick += (s, e) =>
+                {
+                    Interlocked.Exchange(ref heartbeatTicks, DateTime.UtcNow.Ticks);
+                    if (suppressRelease && !NativeWindows.LeftButtonDown()) { suppressRelease = false; pressed = null; }
+                    if (!suppressRelease && (hook == IntPtr.Zero || (Stopwatch.GetTimestamp() - lastRenewal) * 1000.0 / Stopwatch.Frequency >= renewalMilliseconds)) RenewHook();
+                    QueueStatus();
+                };
+                watchdog.Start();
+                if (!Disposed) Dispatcher.Run();
+            }
+            catch (Exception error) { QueueUi(() => Storage.Log(error)); }
+            finally
+            {
+                if (watchdog != null) watchdog.Stop();
+                if (hook != IntPtr.Zero) { NativeWindows.UnhookWindowsHookEx(hook); hook = IntPtr.Zero; }
+                hookDispatcher = null;
+                QueueStatus();
+            }
+        }
+        private void RenewHook()
+        {
+            if (Disposed || suppressRelease) return;
+            // Install first, then remove the old registration; no gap between them.
+            var replacement = NativeWindows.SetWindowsHookEx(14, callback, NativeWindows.GetModuleHandle(null), 0);
+            if (replacement == IntPtr.Zero)
+            {
+                int error = Marshal.GetLastWin32Error();
+                if (hookError != error) QueueUi(() => Storage.Log(new Win32Exception(error, "无法恢复任务栏时钟入口")));
+                Volatile.Write(ref hookError, error); QueueStatus(); return;
+            }
+            var previous = hook; hook = replacement;
+            if (previous != IntPtr.Zero) NativeWindows.UnhookWindowsHookEx(previous);
+            Interlocked.Increment(ref renewals); Volatile.Write(ref hookError, 0);
+            lastRenewal = Stopwatch.GetTimestamp();
+            Interlocked.Exchange(ref heartbeatTicks, DateTime.UtcNow.Ticks);
+            QueueStatus();
+        }
+        private void RequestRenewal()
+        {
+            var worker = hookDispatcher;
+            if (worker == null || worker.HasShutdownStarted || Disposed) return;
+            try { worker.BeginInvoke(new Action(RenewHook)); } catch (InvalidOperationException) { }
+        }
+        internal Task<int> ProbeWorkerAsync(bool removeNativeHook)
+        {
+            var worker = hookDispatcher;
+            if (worker == null) throw new InvalidOperationException("入口线程尚未启动。");
+            return worker.InvokeAsync(() =>
+            {
+                if (removeNativeHook && hook != IntPtr.Zero) NativeWindows.UnhookWindowsHookEx(hook); // Deliberately retain the stale handle to test silent removal.
+                return Thread.CurrentThread.ManagedThreadId;
+            }).Task;
+        }
+        internal bool WaitForWorkerExit(int milliseconds) { return hookThread == null || hookThread.Join(milliseconds); }
+        private void QueueUi(Action action)
+        {
+            if (Disposed || dispatcher.HasShutdownStarted) return;
+            try { dispatcher.BeginInvoke(new Action(() => { if (!Disposed) action(); })); } catch (InvalidOperationException) { }
+        }
+        private void QueueStatus()
+        {
+            if (!diagnostics || Disposed || Interlocked.CompareExchange(ref statusPending, 1, 0) != 0) return;
+            QueueUi(() => { Interlocked.Exchange(ref statusPending, 0); PublishStatus(); });
         }
         private IntPtr OnMouse(int code, IntPtr message, IntPtr data)
         {
             // This callback only hit-tests cached rectangles and queues UI work.
             // UI Automation, I/O and rendering never run inside the mouse hook.
-            if (code >= 0 && !disposed)
+            // Installed on the dedicated message loop, never the WPF UI thread.
+            if (code >= 0 && !Disposed)
             {
                 int kind = message.ToInt32();
                 if (kind == 0x0201)
@@ -200,28 +301,33 @@ namespace MoonCalendar
                     var point = ((NativeWindows.MouseData)Marshal.PtrToStructure(data, typeof(NativeWindows.MouseData))).Point;
                     if (target != null && target.Contains(point.X, point.Y))
                     {
-                        interceptedClicks++;
-                        dispatcher.BeginInvoke(new Action(() => { if (!disposed) { show(target); PublishStatus(); } }));
+                        Interlocked.Increment(ref interceptedClicks);
+                        QueueUi(() => { show(target); PublishStatus(); });
                     }
                     return new IntPtr(1);
                 }
                 if (kind == 0x0201 || kind == 0x0204 || kind == 0x0207 || kind == 0x020B)
                 {
                     var point = ((NativeWindows.MouseData)Marshal.PtrToStructure(data, typeof(NativeWindows.MouseData))).Point;
-                    dispatcher.BeginInvoke(new Action(() => { if (!disposed) outsideClick(point); }));
+                    QueueUi(() => outsideClick(point));
                 }
             }
             return NativeWindows.CallNextHookEx(hook, code, message, data);
         }
         private void PublishStatus()
         {
-            if (disposed) return;
-            Storage.Write("integration-status.json", new { hookActive = hook != IntPtr.Zero, clockTargets = targets, interceptedClicks = interceptedClicks, status = StatusText, updatedUtc = DateTime.UtcNow });
+            if (!diagnostics) return;
+            long ticks = Interlocked.Read(ref heartbeatTicks);
+            Storage.Write("integration-status.json", new { hookActive = HookInstalled, hookWorkerAlive = WorkerAlive, hookWorkerThreadId = WorkerThreadId, hookRenewals = RenewalCount, hookError = Volatile.Read(ref hookError), hookHeartbeatUtc = ticks == 0 ? (DateTime?)null : new DateTime(ticks, DateTimeKind.Utc), clockTargets = targets, interceptedClicks = Volatile.Read(ref interceptedClicks), status = StatusText, updatedUtc = DateTime.UtcNow });
         }
         public void Dispose()
         {
-            disposed = true; stop.Set();
-            if (hook != IntPtr.Zero) { NativeWindows.UnhookWindowsHookEx(hook); hook = IntPtr.Zero; }
+            if (Interlocked.Exchange(ref disposeRequested, 1) != 0) return;
+            stop.Set();
+            var worker = hookDispatcher;
+            if (worker != null && !worker.HasShutdownStarted) { try { worker.BeginInvokeShutdown(DispatcherPriority.Send); } catch (InvalidOperationException) { } }
+            if (discoveryThread == null) stop.Dispose();
+            PublishStatus();
         }
     }
 
@@ -261,6 +367,7 @@ namespace MoonCalendar
         [DllImport("user32.dll")] public static extern bool GetWindowRect(IntPtr window, out Rect rect);
         [DllImport("user32.dll")] private static extern IntPtr WindowFromPoint(Point point);
         [DllImport("user32.dll")] private static extern IntPtr GetAncestor(IntPtr window, uint flags);
+        [DllImport("user32.dll")] private static extern short GetAsyncKeyState(int key);
         [DllImport("user32.dll", SetLastError = true)] public static extern IntPtr SetWindowsHookEx(int kind, MouseProc callback, IntPtr module, uint thread);
         [DllImport("user32.dll")] public static extern bool UnhookWindowsHookEx(IntPtr hook);
         [DllImport("user32.dll")] public static extern IntPtr CallNextHookEx(IntPtr hook, int code, IntPtr message, IntPtr data);
@@ -272,6 +379,7 @@ namespace MoonCalendar
         [DllImport("user32.dll")] private static extern bool SetWindowPos(IntPtr window, IntPtr insertAfter, int x, int y, int width, int height, uint flags);
         public static string ClassOf(IntPtr window) { var value = new StringBuilder(256); GetClassName(window, value, value.Capacity); return value.ToString(); }
         public static IntPtr RootAt(Point point) { return GetAncestor(WindowFromPoint(point), 2); }
+        public static bool LeftButtonDown() { return (GetAsyncKeyState(1) & 0x8000) != 0; }
         public static List<IntPtr> Taskbars()
         {
             var list = new List<IntPtr>();
@@ -282,7 +390,10 @@ namespace MoonCalendar
         public static void Raise(Window window) { SetWindowPos(new WindowInteropHelper(window).Handle, IntPtr.Zero, 0, 0, 0, 0, 0x0001 | 0x0002); }
         public static object CalendarWindowStatus()
         {
-            var handle = FindWindow(null, "拾光日历");
+            return WindowStatus(FindWindow(null, "拾光日历"));
+        }
+        internal static object WindowStatus(IntPtr handle)
+        {
             Rect bounds; GetWindowRect(handle, out bounds);
             int cloaked; int cloakResult = DwmGetWindowAttribute(handle, 14, out cloaked, sizeof(int));
             return new { found = handle != IntPtr.Zero, handle = handle.ToInt64(), visible = IsWindowVisible(handle), minimized = IsIconic(handle), foreground = GetForegroundWindow() == handle, cloaked = cloakResult == 0 ? (int?)cloaked : null, bounds = bounds };

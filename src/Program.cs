@@ -14,8 +14,8 @@ using System.Windows.Threading;
 [assembly: AssemblyDescription("时间、天气、农历与中国法定节假日桌面日历")]
 [assembly: AssemblyCompany("MoonCalendar")]
 [assembly: AssemblyProduct("拾光日历")]
-[assembly: AssemblyVersion("1.2.0.0")]
-[assembly: AssemblyFileVersion("1.2.0.0")]
+[assembly: AssemblyVersion("1.2.1.0")]
+[assembly: AssemblyFileVersion("1.2.1.0")]
 
 namespace MoonCalendar
 {
@@ -63,6 +63,7 @@ namespace MoonCalendar
             }
             if (args.Length > 1 && args[0] == "--self-test") return SelfTests.Run(args[1]);
             if (args.Length > 1 && args[0] == "--ui-self-test") return WindowTests.Run(args[1]);
+            if (args.Length > 1 && args[0] == "--hook-self-test") return HookTests.Run(args[1]);
             if (args.Length > 1 && args[0] == "--window-status")
             {
                 File.WriteAllText(args[1], Storage.Json.Serialize(NativeWindows.CalendarWindowStatus()), System.Text.Encoding.UTF8);

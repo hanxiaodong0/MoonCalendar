@@ -1,12 +1,14 @@
 # 拾光日历
 
-参考你提供的界面制作的原生 Windows 桌面日历：保留深色背景、蓝色今日圆点，当月日期白色高亮，相邻月份日期灰色，默认显示天津天气。当前版本 1.2.0。
+参考你提供的界面制作的原生 Windows 桌面日历：保留深色背景、蓝色今日圆点，当月日期白色高亮，相邻月份日期灰色，默认显示天津天气。当前版本 1.2.1。
 
 <img src="docs/screenshot.png" width="434" alt="拾光日历：固定六行的深色日历界面" />
 
 ## 使用
 
 从源码运行下方构建命令后，打开生成的 `dist/MoonCalendar.exe` 即可使用。建议保留同目录的配置文件和许可证。源码仓库不包含生成的 EXE 和 ZIP。
+
+无需编译可直接从 [Releases](https://github.com/hanxiaodong0/MoonCalendar/releases/latest) 下载 Windows 程序压缩包，解压后运行 `MoonCalendar.exe`。
 
 适用 Windows 10 / 11，需要 .NET Framework 4.8；已在 Windows 11 build 22631 上验证可运行。无需安装 Node.js、Python 或另外的 .NET SDK，不需要管理员权限。
 
@@ -26,7 +28,7 @@
 
 设置中的自启动与任务栏入口可以独立开关。退出拾光日历，或者取消任务栏入口选项后，Windows 自带的日历入口会恢复。程序接管鼠标点击任务栏日期/时间的入口，Windows 的其他通知入口和快捷键保留原有行为。
 
-自启动使用当前用户的注册表 `Run` 启动项，符合 [Microsoft 的启动项说明](https://learn.microsoft.com/en-us/windows/win32/setupapi/run-and-runonce-registry-keys)，不需要管理员权限。任务栏入口使用运行期间的鼠标钩子，仅在识别到真实任务栏时钟按钮后拦截该按钮的左键点击；其他区域和右键操作正常传递。识别会定期重做，以适应 Explorer 重启或任务栏变化。钩子按 [Microsoft 的接口约定](https://learn.microsoft.com/en-us/windows/win32/winmsg/lowlevelmouseproc)实现。
+自启动使用当前用户的注册表 `Run` 启动项，符合 [Microsoft 的启动项说明](https://learn.microsoft.com/en-us/windows/win32/setupapi/run-and-runonce-registry-keys)，不需要管理员权限。任务栏入口使用运行期间的鼠标钩子，仅在识别到真实任务栏时钟按钮后拦截该按钮的左键点击；其他区域和右键操作正常传递。识别会定期重做，以适应 Explorer 重启或任务栏变化。钩子在独立线程和消息循环中运行，界面渲染、设置及联网不阻塞该线程；每约 30 秒重新注册以恢复系统静默移除的钩子，按下时钟期间延后续订，释放后恢复。间隔使用单调计时，校准系统时间不影响续订。实现依据 [Microsoft 的低级鼠标钩子说明](https://learn.microsoft.com/en-us/windows/win32/winmsg/lowlevelmouseproc)。
 
 已在 Windows 11 build 22631 的双屏环境中识别主屏和副屏的任务栏时间按钮，并实际点击确认能够弹出拾光日历。其他 Windows 版本保留原生时钟 HWND 与常见时钟自动化标识的识别；未识别时不会拦截整个任务栏，仍可从托盘使用。
 
@@ -86,14 +88,17 @@
 ```powershell
 Start-Process .\dist\MoonCalendar.exe -ArgumentList '--self-test', "$PWD\verification\self-test.json" -Wait
 Start-Process .\dist\MoonCalendar.exe -ArgumentList '--ui-self-test', "$PWD\verification\ui-self-test.json" -Wait
+Start-Process .\dist\MoonCalendar.exe -ArgumentList '--hook-self-test', "$PWD\verification\hook-self-test.json" -Wait
 Start-Process .\dist\MoonCalendar.exe -ArgumentList '--network-test', "$PWD\verification\network-test.json" -Wait
 ```
 
-`--self-test` 检查农历、节气、闰月、放假补班、天气缓存隔离及 2388 个月的布局。`--ui-self-test` 会短暂显示测试窗口，验证原生窗口的实际隐藏、反复弹出、遮挡和收起；测试不接管任务栏、不修改个人设置。`--network-test` 使用程序自身的网络实现获取天津天气和搜索城市，需要联网。
+`--self-test` 检查农历、节气、闰月、放假补班、天气缓存隔离及 2388 个月的布局。`--ui-self-test` 会短暂显示测试窗口，验证原生窗口的实际隐藏、反复弹出、遮挡和收起；测试不接管任务栏、不修改个人设置。`--hook-self-test` 验证真实钩子线程在界面阻塞时继续响应、模拟原生钩子被移除后重新注册，以及反复启停的清理；测试不识别时钟区域、不拦截任务栏点击、不覆盖运行实例的状态文件。`--network-test` 使用程序自身的网络实现获取天津天气和搜索城市，需要联网。
 
 `--startup` 从托盘模式启动；重复启动 EXE 会唤回现有窗口。`--integration-status <结果.json>` 可只读检查自启动登记及已识别的时钟范围。`--enable-windows-integration <结果.json>` 启用自启动并保存任务栏接管选项；`--disable-windows-integration <结果.json>` 撤销这两项登记，运行中的实例应随后重启以应用。
 
-`verification/` 保存测试结果，输出文件不纳入版本管理。当前版本的 49 项数据及校时检查和 28 项窗口回归检查已通过。`--capture <绝对路径.png>` 可启动程序并在五秒后导出自身 WPF 界面；使用时先退出已运行的日历。
+`verification/` 保存测试结果，输出文件不纳入版本管理。当前版本的 49 项数据及校时检查、28 项窗口检查和 6 项入口线程检查已通过。窗口检查需在交互桌面进行，前台权限及其他窗口遮挡可能影响结果；失败时输出测试窗口的原生状态以辅助诊断。`--capture <绝对路径.png>` 可启动程序并在五秒后导出自身 WPF 界面；使用时先退出已运行的日历。
+
+运行中的 `integration-status.json` 每约 3 秒更新，包含入口线程心跳、重新注册次数及已拦截的时钟点击次数，用于排查长时间运行后的状态；不记录鼠标轨迹。
 
 `--time-sync-status <结果.json>` 只读检查校时任务和 Windows 实际同步状态；`--enable-time-sync <结果.json>` 和 `--disable-time-sync <结果.json>` 通过 UAC 启用或停用校时任务；`--sync-time-now <结果.json>` 触发已有任务并等待执行结果。以上命令不会唤回日历主窗口。
 
