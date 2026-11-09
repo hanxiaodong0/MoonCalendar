@@ -13,7 +13,7 @@ $outputDirectory = if ([String]::IsNullOrEmpty($OutputDirectory)) { Join-Path $p
 New-Item -ItemType Directory -Path $outputDirectory -Force | Out-Null
 $binary = Join-Path $outputDirectory 'MoonCalendar.exe'
 $compilerArgs = @('/nologo', '/target:winexe', '/platform:anycpu', '/optimize+', '/utf8output', '/codepage:65001', "/out:$binary", "/win32manifest:$(Join-Path $projectRoot 'app.manifest')", "/win32icon:$(Join-Path $projectRoot 'assets\app.ico')")
-foreach ($library in @('System.dll', 'System.Core.dll', 'System.Xaml.dll', 'System.Net.Http.dll', 'System.Web.Extensions.dll', 'System.Windows.Forms.dll', 'System.Drawing.dll')) {
+foreach ($library in @('System.dll', 'System.Core.dll', 'System.Xaml.dll', 'System.Net.Http.dll', 'System.Web.Extensions.dll', 'System.Windows.Forms.dll', 'System.Drawing.dll', 'System.ServiceProcess.dll', 'System.Xml.dll', 'Microsoft.CSharp.dll')) {
     $compilerArgs += "/reference:$(Join-Path $framework $library)"
 }
 foreach ($library in @('WindowsBase.dll', 'PresentationCore.dll', 'PresentationFramework.dll', 'UIAutomationClient.dll', 'UIAutomationTypes.dll')) { $compilerArgs += "/reference:$(Join-Path $framework "WPF\$library")" }

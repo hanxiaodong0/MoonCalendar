@@ -14,8 +14,8 @@ using System.Windows.Threading;
 [assembly: AssemblyDescription("时间、天气、农历与中国法定节假日桌面日历")]
 [assembly: AssemblyCompany("MoonCalendar")]
 [assembly: AssemblyProduct("拾光日历")]
-[assembly: AssemblyVersion("1.1.1.0")]
-[assembly: AssemblyFileVersion("1.1.1.0")]
+[assembly: AssemblyVersion("1.2.0.0")]
+[assembly: AssemblyFileVersion("1.2.0.0")]
 
 namespace MoonCalendar
 {
@@ -36,8 +36,10 @@ namespace MoonCalendar
             try { return Run(args); }
             catch (Exception error)
             {
-                Storage.Log(error);
-                if (args.Length > 1) File.WriteAllText(args[1], error.ToString());
+                bool timeSetup = args.Length > 0 && (args[0] == "--install-time-sync" || args[0] == "--remove-time-sync");
+                if (!timeSetup) Storage.Log(error);
+                if (timeSetup) MessageBox.Show(error.Message, "拾光日历 · 系统时间同步", MessageBoxButton.OK, MessageBoxImage.Error);
+                else if (args.Length > 1) File.WriteAllText(args[1], error.ToString());
                 else MessageBox.Show("日历暂时无法启动。\n\n" + error.Message + "\n\n详细日志：" + Path.Combine(Storage.DirectoryPath, "errors.log"), "拾光日历", MessageBoxButton.OK, MessageBoxImage.Error);
                 return 1;
             }
@@ -46,6 +48,19 @@ namespace MoonCalendar
         [MethodImpl(MethodImplOptions.NoInlining)]
         private static int Run(string[] args)
         {
+            if (args.Length == 2 && args[0] == "--install-time-sync") { TimeSynchronization.Install(args[1]); return 0; }
+            if (args.Length == 1 && args[0] == "--remove-time-sync") { TimeSynchronization.Remove(); return 0; }
+            if (args.Length > 1 && (args[0] == "--enable-time-sync" || args[0] == "--disable-time-sync" || args[0] == "--sync-time-now" || args[0] == "--time-sync-status"))
+            {
+                TimeSyncStatus status;
+                if (args[0] == "--enable-time-sync" || args[0] == "--disable-time-sync") status = TimeSynchronization.ChangeRegistrationAsync(args[0] == "--enable-time-sync").GetAwaiter().GetResult();
+                else if (args[0] == "--sync-time-now") status = TimeSynchronization.SynchronizeNowAsync().GetAwaiter().GetResult();
+                else status = TimeSynchronization.GetStatus();
+                string windowsStatus;
+                try { windowsStatus = TimeSynchronization.QueryWindowsStatus(); } catch (Exception error) { windowsStatus = error.Message; }
+                File.WriteAllText(args[1], Storage.Json.Serialize(new { status = status, windowsStatus = windowsStatus }), System.Text.Encoding.UTF8);
+                return status.Error != null || (args[0] == "--sync-time-now" && (status.Running || status.LastResult != 0)) ? 1 : 0;
+            }
             if (args.Length > 1 && args[0] == "--self-test") return SelfTests.Run(args[1]);
             if (args.Length > 1 && args[0] == "--ui-self-test") return WindowTests.Run(args[1]);
             if (args.Length > 1 && args[0] == "--window-status")
@@ -183,6 +198,7 @@ namespace MoonCalendar
             check("自启动路径带空格时正确引用", StartupRegistration.CommandFor(@"G:\My Calendar\MoonCalendar.exe") == "\"G:\\My Calendar\\MoonCalendar.exe\" --startup");
             var target = new ClockTarget { Left = 100, Top = 200, Right = 180, Bottom = 240 };
             check("任务栏时钟边界不吞相邻区域", target.Contains(100, 200) && target.Contains(179, 239) && !target.Contains(180, 220) && !target.Contains(99, 220));
+            TimeSyncTests.Check(check);
             File.WriteAllText(output, Storage.Json.Serialize(new { passed = failed == 0, total = results.Count, failed = failed, checks = results }), System.Text.Encoding.UTF8);
             return failed == 0 ? 0 : 1;
         }

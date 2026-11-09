@@ -15,6 +15,8 @@
   <ItemGroup>
     <Compile Include="src\*.cs"/>
     <Reference Include="System.Web.Extensions"/>
+    <Reference Include="System.ServiceProcess"/>
+    <Reference Include="Microsoft.CSharp"/>
     <Reference Include="UIAutomationClient"/>
     <Reference Include="UIAutomationTypes"/>
     <Reference Include="lunar"><HintPath>lib\lunar.dll</HintPath><Private>false</Private></Reference>

@@ -473,6 +473,7 @@ namespace MoonCalendar
             var replace = Option(panel, "点击任务栏时间打开拾光日历", preferences.ReplaceSystemCalendar);
             var integrationHint = new TextBlock { Text = taskbarIntegration == null ? "关闭接管或退出程序后，恢复 Windows 日历。" : taskbarIntegration.StatusText, Foreground = Brush("#859AB6"), FontSize = 10, TextWrapping = TextWrapping.Wrap, Margin = new Thickness(0, 1, 0, 0) };
             panel.Children.Add(integrationHint);
+            AddTimeSyncSettings(panel, dialog);
             panel.Children.Add(new Border { Height = 1, Background = Brush("#3A4B61"), Margin = new Thickness(0, 15, 0, 14) });
             var holidayStatus = new TextBlock { Text = "放假调休：" + month.Year + (holidays.HasYear(month.Year) ? " 年数据已就绪" : " 年暂无数据"), Foreground = Brush("#B4C5DA"), FontSize = 11 };
             panel.Children.Add(holidayStatus);
@@ -515,6 +516,60 @@ namespace MoonCalendar
             dialog.Content = new ScrollViewer { Content = panel, VerticalScrollBarVisibility = ScrollBarVisibility.Auto };
             dialog.MaxHeight = SystemParameters.WorkArea.Height - 20;
             dialog.ShowDialog();
+        }
+        private void AddTimeSyncSettings(Panel panel, Window dialog)
+        {
+            panel.Children.Add(new Border { Height = 1, Background = Brush("#3A4B61"), Margin = new Thickness(0, 15, 0, 14) });
+            panel.Children.Add(new TextBlock { Text = "系统时间同步", FontSize = 15, Margin = new Thickness(0, 0, 0, 8) });
+            var statusText = new TextBlock { Text = "正在读取校时状态…", TextWrapping = TextWrapping.Wrap, FontSize = 11, Foreground = Brush("#B4C5DA"), LineHeight = 19 };
+            panel.Children.Add(statusText);
+            var sourceText = new TextBlock { TextWrapping = TextWrapping.Wrap, FontSize = 10, Foreground = Brush("#859AB6"), Margin = new Thickness(0, 5, 0, 8) };
+            panel.Children.Add(sourceText);
+            var row = new StackPanel { Orientation = Orientation.Horizontal };
+            var configure = new Button { Content = "启用自动同步…", Foreground = Brush("#72B8FF"), Height = 30, IsEnabled = false };
+            var synchronize = new Button { Content = "立即同步", Foreground = Brush("#72B8FF"), Height = 30, Margin = new Thickness(18, 0, 0, 0), IsEnabled = false };
+            AutomationProperties.SetName(configure, "启用或停用每24小时系统时间同步");
+            AutomationProperties.SetName(synchronize, "立即同步Windows系统时间");
+            row.Children.Add(configure); row.Children.Add(synchronize); panel.Children.Add(row);
+            panel.Children.Add(new TextBlock { Text = "首次启用需管理员授权，之后每 24 小时自动同步并应用到系统时间；休眠错过后补执行。断网失败后每 15 分钟重试，最多 3 次。", TextWrapping = TextWrapping.Wrap, FontSize = 10, Foreground = Brush("#859AB6"), Margin = new Thickness(0, 5, 0, 0), LineHeight = 17 });
+            TimeSyncStatus current = null;
+            bool busy = false;
+            Action<TimeSyncStatus> render = status =>
+            {
+                current = status; statusText.Text = status.Description;
+                sourceText.Text = "时间源（Windows 配置）：" + status.ConfiguredSource;
+                configure.Content = status.Installed && status.Enabled ? "停用自动同步…" : "启用自动同步…";
+                configure.IsEnabled = !busy;
+                synchronize.IsEnabled = !busy && status.Installed && status.Enabled && !status.Running;
+            };
+            var timer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(3) };
+            bool refreshing = false;
+            Func<Task> refreshStatus = async () =>
+            {
+                if (busy || refreshing) return;
+                refreshing = true;
+                try { render(await Task.Run(() => TimeSynchronization.GetStatus())); }
+                finally { refreshing = false; }
+            };
+            timer.Tick += async (s, e) => await refreshStatus();
+            dialog.Closed += (s, e) => timer.Stop();
+            dialog.Loaded += async (s, e) => { timer.Start(); await refreshStatus(); };
+            configure.Click += async (s, e) =>
+            {
+                bool enable = current == null || !current.Installed || !current.Enabled;
+                busy = true; configure.IsEnabled = synchronize.IsEnabled = false;
+                statusText.Text = "请在 Windows 提示中完成管理员授权…";
+                try { render(await TimeSynchronization.ChangeRegistrationAsync(enable)); }
+                catch (Exception error) { statusText.Text = error.Message; }
+                finally { busy = false; configure.IsEnabled = true; synchronize.IsEnabled = current != null && current.Installed && current.Enabled && !current.Running; }
+            };
+            synchronize.Click += async (s, e) =>
+            {
+                busy = true; configure.IsEnabled = synchronize.IsEnabled = false; statusText.Text = "正在与时间服务器同步并应用到系统时间…";
+                try { render(await TimeSynchronization.SynchronizeNowAsync()); UpdateClock(); }
+                catch (Exception error) { statusText.Text = "同步未完成：" + error.Message; }
+                finally { busy = false; configure.IsEnabled = true; synchronize.IsEnabled = current != null && current.Installed && current.Enabled && !current.Running; }
+            };
         }
         private static CheckBox Option(Panel panel, string title, bool value)
         {

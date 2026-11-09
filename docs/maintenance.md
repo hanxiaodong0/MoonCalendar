@@ -53,6 +53,17 @@ python .\tools\fetch-dependencies.py
 
 日历自身的联网缓存更新不直接修改源码仓库中的初始数据文件。
 
+## 维护自动校时
+
+自动校时是名为 `MoonCalendar-TimeSync` 的 Windows 系统任务，与日历的登录自启动独立。可在设置中查看状态、立即同步或停用。查询不会请求管理员权限：
+
+```powershell
+Start-Process .\dist\MoonCalendar.exe -ArgumentList '--time-sync-status', "$PWD\verification\time-sync-status.json" -Wait
+Get-Content .\verification\time-sync-status.json -Encoding UTF8
+```
+
+任务使用系统目录下的 `w32tm.exe`，更新或移动日历不会破坏任务路径。若要完整移除拾光的每日校时功能，先在设置中停用自动同步，再删除程序目录。不要将任务动作改为用户可写目录中的程序或脚本。
+
 ## 登录
 
 首次上传使用 GitHub 官方 CLI 的浏览器授权。后续 `git push` 会通过本仓库配置的 GitHub 凭据助手认证。凭据、浏览器登录信息及本地 `.git/config` 不会上传到仓库。
