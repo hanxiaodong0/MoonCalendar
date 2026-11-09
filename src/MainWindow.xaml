@@ -1,0 +1,102 @@
+<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="拾光日历" Width="434" SizeToContent="Height" WindowStyle="None"
+        ResizeMode="NoResize" Background="#1F2938" Foreground="#E8EDF5"
+        FontFamily="Microsoft YaHei UI, Segoe UI" FontSize="13"
+        UseLayoutRounding="True" SnapsToDevicePixels="True"
+        TextOptions.TextFormattingMode="Display" WindowStartupLocation="CenterScreen">
+  <Window.Resources>
+    <SolidColorBrush x:Key="Muted" Color="#98A6BA"/>
+    <SolidColorBrush x:Key="Accent" Color="#52ABFF"/>
+    <Style TargetType="Button">
+      <Setter Property="Background" Value="Transparent"/>
+      <Setter Property="Foreground" Value="#AAB6C7"/>
+      <Setter Property="BorderThickness" Value="0"/>
+      <Setter Property="Cursor" Value="Hand"/>
+      <Setter Property="Padding" Value="0"/>
+      <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="Button">
+            <Border x:Name="ButtonBorder" Background="{TemplateBinding Background}" CornerRadius="6" Padding="{TemplateBinding Padding}">
+              <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+            <ControlTemplate.Triggers>
+              <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="ButtonBorder" Property="Background" Value="#334258"/><Setter Property="Foreground" Value="White"/></Trigger>
+              <Trigger Property="IsKeyboardFocused" Value="True"><Setter TargetName="ButtonBorder" Property="Background" Value="#334258"/></Trigger>
+              <Trigger Property="IsPressed" Value="True"><Setter TargetName="ButtonBorder" Property="Background" Value="#415575"/></Trigger>
+              <Trigger Property="IsEnabled" Value="False"><Setter Property="Opacity" Value="0.35"/></Trigger>
+            </ControlTemplate.Triggers>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+    <Style TargetType="ToolTip">
+      <Setter Property="Background" Value="#2C3B50"/><Setter Property="Foreground" Value="#EDF3FA"/>
+      <Setter Property="BorderBrush" Value="#41536C"/><Setter Property="Padding" Value="12,8"/>
+    </Style>
+  </Window.Resources>
+  <Border BorderBrush="#354256" BorderThickness="1">
+    <StackPanel>
+      <Grid x:Name="TitleBar" Height="28" Background="Transparent" Margin="13,3,8,0">
+        <TextBlock Text="拾光日历" Foreground="#8190A5" FontSize="10" VerticalAlignment="Center" IsHitTestVisible="False"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+          <Button x:Name="PinButton" Width="28" Height="24" FontFamily="Segoe MDL2 Assets" Content="&#xE718;" ToolTip="置顶窗口"/>
+          <Button x:Name="MinimizeButton" Width="28" Height="24" FontFamily="Segoe MDL2 Assets" Content="&#xE921;" ToolTip="最小化"/>
+          <Button x:Name="CloseButton" Width="28" Height="24" FontFamily="Segoe MDL2 Assets" Content="&#xE8BB;" ToolTip="关闭到托盘"/>
+        </StackPanel>
+      </Grid>
+      <Grid Margin="25,0,25,0" Height="103">
+        <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="108"/></Grid.ColumnDefinitions>
+        <StackPanel x:Name="ClockDragArea" Background="Transparent">
+          <TextBlock x:Name="ClockText" Text="10:51:51" FontFamily="Segoe UI" FontSize="49" FontWeight="SemiBold" Margin="-2,-9,0,0"/>
+          <TextBlock x:Name="DateText" Text="2026年11月9日  星期一" Foreground="#CDD7E6" Margin="0,0,0,0" FontSize="12"/>
+          <TextBlock x:Name="LunarText" Text="丙午年 · 马  十月初一" Foreground="#8E9DB2" Margin="0,7,0,0" FontSize="11"/>
+        </StackPanel>
+        <Button x:Name="WeatherButton" Grid.Column="1" ToolTip="点击刷新天气；在设置中切换城市" VerticalAlignment="Top" Margin="0,-3,0,0" Height="93">
+          <StackPanel HorizontalAlignment="Right">
+            <ContentControl x:Name="WeatherIconHost" Width="54" Height="43" HorizontalAlignment="Right"/>
+            <TextBlock x:Name="TemperatureText" Text="--°C" FontSize="17" Foreground="#E5EDF8" HorizontalAlignment="Right" Margin="0,2,0,0"/>
+            <TextBlock x:Name="WeatherCaption" Text="天津 · 正在更新" FontSize="10" Foreground="#93A5BD" HorizontalAlignment="Right" Margin="0,3,0,0"/>
+          </StackPanel>
+        </Button>
+      </Grid>
+      <Border Background="#354154" Height="1" Margin="25,9,25,0"/>
+      <Grid Margin="25,14,19,6" Height="30">
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+          <Button x:Name="MonthPickerButton" ToolTip="选择年份和月份" Padding="0,4,7,4">
+            <StackPanel Orientation="Horizontal"><TextBlock x:Name="MonthText" Text="2026年11月" FontSize="16" Foreground="#E0E7F2"/><TextBlock Text="⌄" FontSize="12" Foreground="#8192AA" Margin="7,2,0,0"/></StackPanel>
+          </Button>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+          <Button x:Name="TodayButton" Content="今天" Width="40" Height="26" FontSize="10" Foreground="#80BAFF" ToolTip="回到今天（Home）" Margin="0,0,5,0"/>
+          <Button x:Name="PreviousButton" Width="27" Height="28" FontFamily="Segoe MDL2 Assets" FontSize="10" Content="&#xE76B;" ToolTip="上个月（←）"/>
+          <Button x:Name="NextButton" Width="27" Height="28" FontFamily="Segoe MDL2 Assets" FontSize="10" Content="&#xE76C;" ToolTip="下个月（→）"/>
+          <Button x:Name="SettingsButton" Width="30" Height="28" FontFamily="Segoe MDL2 Assets" FontSize="14" Content="&#xE713;" ToolTip="设置" Margin="3,0,0,0"/>
+        </StackPanel>
+      </Grid>
+      <UniformGrid Columns="7" Height="29" Margin="13,0,13,1">
+        <TextBlock Text="一" HorizontalAlignment="Center" Foreground="#A4B1C3" FontSize="11"/>
+        <TextBlock Text="二" HorizontalAlignment="Center" Foreground="#A4B1C3" FontSize="11"/>
+        <TextBlock Text="三" HorizontalAlignment="Center" Foreground="#A4B1C3" FontSize="11"/>
+        <TextBlock Text="四" HorizontalAlignment="Center" Foreground="#A4B1C3" FontSize="11"/>
+        <TextBlock Text="五" HorizontalAlignment="Center" Foreground="#A4B1C3" FontSize="11"/>
+        <TextBlock Text="六" HorizontalAlignment="Center" Foreground="#A4B1C3" FontSize="11"/>
+        <TextBlock Text="日" HorizontalAlignment="Center" Foreground="#A4B1C3" FontSize="11"/>
+      </UniformGrid>
+      <Grid x:Name="DaysGrid" Margin="13,0,13,0"/>
+      <Border Background="#354154" Height="1" Margin="25,10,25,0"/>
+      <Grid Margin="25,12,25,12">
+        <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+        <StackPanel>
+          <TextBlock x:Name="SelectedDateText" Foreground="#D1DCEA" FontSize="11"/>
+          <TextBlock x:Name="SelectedInfoText" Foreground="#8C9DB4" FontSize="10" Margin="0,5,0,0" TextTrimming="CharacterEllipsis" MaxWidth="300" HorizontalAlignment="Left"/>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+          <TextBlock Text="休" Foreground="#5AC8AE" FontSize="10" Margin="0,0,8,0" ToolTip="国务院公布的放假安排"/>
+          <TextBlock Text="班" Foreground="#F7B66B" FontSize="10" ToolTip="调休补班"/>
+        </StackPanel>
+      </Grid>
+    </StackPanel>
+  </Border>
+</Window>

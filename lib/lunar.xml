@@ -1,0 +1,4724 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>lunar</name>
+    </assembly>
+    <members>
+        <member name="T:Lunar.EightChar.DaYun">
+            <summary>
+            大运
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.DaYun.StartYear">
+            <summary>
+            开始年(含)
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.DaYun.EndYear">
+            <summary>
+            结束年(含)
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.DaYun.StartAge">
+            <summary>
+            开始年龄(含)
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.DaYun.EndAge">
+            <summary>
+            结束年龄(含)
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.DaYun.Index">
+            <summary>
+            序数，0-9
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.DaYun.Yun">
+            <summary>
+            运
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.DaYun.Lunar">
+            <summary>
+            阴历
+            </summary>
+        </member>
+        <member name="M:Lunar.EightChar.DaYun.#ctor(Lunar.EightChar.Yun,System.Int32)">
+            <summary>
+            从运和序数初始化
+            </summary>
+            <param name="yun">运</param>
+            <param name="index">序数</param>
+        </member>
+        <member name="P:Lunar.EightChar.DaYun.GanZhi">
+            <summary>
+            获取干支
+            </summary>
+            <returns>干支</returns>
+        </member>
+        <member name="P:Lunar.EightChar.DaYun.Xun">
+            <summary>
+            旬
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.DaYun.XunKong">
+            <summary>
+            旬空(空亡)
+            </summary>
+        </member>
+        <member name="M:Lunar.EightChar.DaYun.GetLiuNian(System.Int32)">
+            <summary>
+            获取流年
+            </summary>
+            <param name="n">轮数</param>
+            <returns>流年</returns>
+        </member>
+        <member name="M:Lunar.EightChar.DaYun.GetXiaoYun(System.Int32)">
+            <summary>
+            获取小运
+            </summary>
+            <param name="n">轮数</param>
+            <returns>小运</returns>
+        </member>
+        <member name="T:Lunar.EightChar.EightChar">
+            <summary>
+            八字
+            </summary>
+        </member>
+        <member name="F:Lunar.EightChar.EightChar.MONTH_ZHI">
+            <summary>
+            月支，按正月起寅排列
+            </summary>
+        </member>
+        <member name="F:Lunar.EightChar.EightChar.CHANG_SHENG">
+            <summary>
+            长生十二神
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.Sect">
+            <summary>
+            流派，2晚子时日柱按当天，1晚子时日柱按明天
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.Lunar">
+            <summary>
+            阴历
+            </summary>
+        </member>
+        <member name="M:Lunar.EightChar.EightChar.#ctor(Lunar.Lunar)">
+            <summary>
+            从阴历初始化
+            </summary>
+            <param name="lunar">阴历</param>
+        </member>
+        <member name="M:Lunar.EightChar.EightChar.FromLunar(Lunar.Lunar)">
+            <summary>
+            从阴历创建八字
+            </summary>
+            <param name="lunar">阴历</param>
+            <returns>八字</returns>
+        </member>
+        <member name="M:Lunar.EightChar.EightChar.ToString">
+            <inheritdoc />
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.Year">
+            <summary>
+            年柱
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.YearGan">
+            <summary>
+            年天干
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.YearZhi">
+            <summary>
+            年地支
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.YearHideGan">
+            <summary>
+            年藏干
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.YearWuXing">
+            <summary>
+            年五行
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.YearNaYin">
+            <summary>
+            年纳音
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.YearShiShenGan">
+            <summary>
+            年天干十神
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.YearShiShenZhi">
+            <summary>
+            年十神支
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.DayGanIndex">
+            <summary>
+            日干序号
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.DayZhiIndex">
+            <summary>
+            日支序号
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.YearDiShi">
+            <summary>
+            年地势
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.Month">
+            <summary>
+            月柱
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.MonthGan">
+            <summary>
+            月干
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.MonthZhi">
+            <summary>
+            月支
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.MonthHideGan">
+            <summary>
+            月藏干
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.MonthWuXing">
+            <summary>
+            月五行
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.MonthNaYin">
+            <summary>
+            月纳音
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.MonthShiShenGan">
+            <summary>
+            月十神干
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.MonthShiShenZhi">
+            <summary>
+            月十神支
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.MonthDiShi">
+            <summary>
+            月地势
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.Day">
+            <summary>
+            日柱
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.DayGan">
+            <summary>
+            日干
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.DayZhi">
+            <summary>
+            日支
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.DayHideGan">
+            <summary>
+            日支藏干
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.DayWuXing">
+            <summary>
+            日五行
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.DayNaYin">
+            <summary>
+            日纳音
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.DayShiShenGan">
+            <summary>
+            日十神干
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.DayShiShenZhi">
+            <summary>
+            日十神支
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.DayDiShi">
+            <summary>
+            日地势
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.Time">
+            <summary>
+            时柱
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.TimeGan">
+            <summary>
+            时干
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.TimeZhi">
+            <summary>
+            时支
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.TimeHideGan">
+            <summary>
+            时支藏干
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.TimeWuXing">
+            <summary>
+            时五行
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.TimeNaYin">
+            <summary>
+            时纳音
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.TimeShiShenGan">
+            <summary>
+            时十神干
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.TimeShiShenZhi">
+            <summary>
+            时十神支
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.TimeDiShi">
+            <summary>
+            时地势
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.TaiYuan">
+            <summary>
+            胎元
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.TaiYuanNaYin">
+            <summary>
+            胎元纳音
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.TaiXi">
+            <summary>
+            胎息
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.TaiXiNaYin">
+            <summary>
+            胎息纳音
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.MingGong">
+            <summary>
+            命宫
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.MingGongNaYin">
+            <summary>
+            命宫纳音
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.ShenGong">
+            <summary>
+            身宫
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.ShenGongNaYin">
+            <summary>
+            身宫纳音
+            </summary>
+        </member>
+        <member name="M:Lunar.EightChar.EightChar.GetYun(System.Int32,System.Int32)">
+            <summary>
+            获取运
+            </summary>
+            <param name="gender">性别：1男，0女</param>
+            <param name="sect">流派，1按天数和时辰数计算，3天1年，1天4个月，1时辰10天；2按分钟数计算</param>
+            <returns>运</returns>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.YearXun">
+            <summary>
+            年柱所在旬
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.YearXunKong">
+            <summary>
+            年柱旬空(空亡)
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.MonthXun">
+            <summary>
+            月柱所在旬
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.MonthXunKong">
+            <summary>
+            月柱旬空(空亡)
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.DayXun">
+            <summary>
+            日柱所在旬
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.DayXunKong">
+            <summary>
+            日柱旬空(空亡)
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.TimeXun">
+            <summary>
+            时柱所在旬
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.EightChar.TimeXunKong">
+            <summary>
+            时柱旬空(空亡)
+            </summary>
+        </member>
+        <member name="T:Lunar.EightChar.LiuNian">
+            <summary>
+            流年
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.LiuNian.Index">
+            <summary>
+            序数，0-9
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.LiuNian.DaYun">
+            <summary>
+            大运
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.LiuNian.Year">
+            <summary>
+            年
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.LiuNian.Age">
+            <summary>
+            年龄
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.LiuNian.Lunar">
+            <summary>
+            阴历
+            </summary>
+        </member>
+        <member name="M:Lunar.EightChar.LiuNian.#ctor(Lunar.EightChar.DaYun,System.Int32)">
+            <summary>
+            创建流年
+            </summary>
+            <param name="daYun">大运</param>
+            <param name="index">序数</param>
+        </member>
+        <member name="P:Lunar.EightChar.LiuNian.GanZhi">
+            <summary>
+            干支
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.LiuNian.Xun">
+            <summary>
+            旬
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.LiuNian.XunKong">
+            <summary>
+            旬空(空亡)
+            </summary>
+        </member>
+        <member name="M:Lunar.EightChar.LiuNian.GetLiuYue">
+            <summary>
+            获取流月
+            </summary>
+            <returns>流月</returns>
+        </member>
+        <member name="T:Lunar.EightChar.LiuYue">
+            <summary>
+            流月
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.LiuYue.Index">
+            <summary>
+            序数，0-11
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.LiuYue.LiuNian">
+            <summary>
+            流年
+            </summary>
+        </member>
+        <member name="M:Lunar.EightChar.LiuYue.#ctor(Lunar.EightChar.LiuNian,System.Int32)">
+            <summary>
+            初始化
+            </summary>
+            <param name="liuNian">流年</param>
+            <param name="index">序数，0-9</param>
+        </member>
+        <member name="P:Lunar.EightChar.LiuYue.MonthInChinese">
+            <summary>
+            中文月，如正
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.LiuYue.GanZhi">
+            <summary>
+            干支
+            <p>
+            《五虎遁》
+            甲己之年丙作首，
+            乙庚之年戊为头，
+            丙辛之年寻庚上，
+            丁壬壬寅顺水流，
+            若问戊癸何处走，
+            甲寅之上好追求。
+            </p>
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.LiuYue.Xun">
+            <summary>
+            旬
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.LiuYue.XunKong">
+            <summary>
+            旬空(空亡)
+            </summary>
+        </member>
+        <member name="T:Lunar.EightChar.XiaoYun">
+            <summary>
+            小运
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.XiaoYun.Index">
+            <summary>
+            序数，0-9
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.XiaoYun.DaYun">
+            <summary>
+            大运
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.XiaoYun.Year">
+            <summary>
+            年
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.XiaoYun.Age">
+            <summary>
+            年龄
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.XiaoYun.Forward">
+            <summary>
+            是否顺推
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.XiaoYun.Lunar">
+            <summary>
+            阴历
+            </summary>
+        </member>
+        <member name="M:Lunar.EightChar.XiaoYun.#ctor(Lunar.EightChar.DaYun,System.Int32,System.Boolean)">
+            <summary>
+            初始化
+            </summary>
+            <param name="daYun">大运</param>
+            <param name="index">序数，0-9</param>
+            <param name="forward">是否顺推</param>
+        </member>
+        <member name="P:Lunar.EightChar.XiaoYun.GanZhi">
+            <summary>
+            干支
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.XiaoYun.Xun">
+            <summary>
+            旬
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.XiaoYun.XunKong">
+            <summary>
+            旬空(空亡)
+            </summary>
+        </member>
+        <member name="T:Lunar.EightChar.Yun">
+            <summary>
+            运
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.Yun.Gender">
+            <summary>
+            性别(1男，0女)
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.Yun.StartYear">
+            <summary>
+            起运年数
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.Yun.StartMonth">
+            <summary>
+            起运月数
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.Yun.StartDay">
+            <summary>
+            起运天数
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.Yun.StartHour">
+            <summary>
+            起运小时
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.Yun.Forward">
+            <summary>
+            是否顺推
+            </summary>
+        </member>
+        <member name="P:Lunar.EightChar.Yun.Lunar">
+            <summary>
+            阴历
+            </summary>
+        </member>
+        <member name="M:Lunar.EightChar.Yun.#ctor(Lunar.EightChar.EightChar,System.Int32,System.Int32)">
+            <summary>
+            创建运
+            </summary>
+            <param name="eightChar">八字</param>
+            <param name="gender">性别</param>
+            <param name="sect">流派</param>
+        </member>
+        <member name="P:Lunar.EightChar.Yun.StartSolar">
+            <summary>
+            获取起运的阳历日期
+            </summary>
+            <returns>阳历日期</returns>
+        </member>
+        <member name="M:Lunar.EightChar.Yun.GetDaYun(System.Int32)">
+            <summary>
+            获取大运
+            </summary>
+            <param name="n">轮数</param>
+            <returns>大运</returns>
+        </member>
+        <member name="T:Lunar.Foto">
+            <summary>
+            佛历
+            </summary>
+        </member>
+        <member name="F:Lunar.Foto.DEAD_YEAR">
+            <summary>
+            佛涅磐年
+            </summary>
+        </member>
+        <member name="P:Lunar.Foto.Lunar">
+            <summary>
+            阴历
+            </summary>
+        </member>
+        <member name="M:Lunar.Foto.#ctor(Lunar.Lunar)">
+            <summary>
+            初始化
+            </summary>
+            <param name="lunar">阴历</param>
+        </member>
+        <member name="M:Lunar.Foto.FromLunar(Lunar.Lunar)">
+            <summary>
+            初始化
+            </summary>
+            <param name="lunar">阴历</param>
+            <returns>佛历</returns>
+        </member>
+        <member name="M:Lunar.Foto.FromYmdHms(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            初始化
+            </summary>
+            <param name="lunarYear">阴历年</param>
+            <param name="lunarMonth">阴历月</param>
+            <param name="lunarDay">阴历日</param>
+            <param name="hour">小时</param>
+            <param name="minute">分钟</param>
+            <param name="second">秒钟</param>
+            <returns>佛历</returns>
+        </member>
+        <member name="P:Lunar.Foto.Year">
+            <summary>
+            年
+            </summary>
+        </member>
+        <member name="P:Lunar.Foto.Month">
+            <summary>
+            月
+            </summary>
+        </member>
+        <member name="P:Lunar.Foto.Day">
+            <summary>
+            日
+            </summary>
+        </member>
+        <member name="P:Lunar.Foto.YearInChinese">
+            <summary>
+            中文年
+            </summary>
+        </member>
+        <member name="P:Lunar.Foto.MonthInChinese">
+            <summary>
+            中文月
+            </summary>
+        </member>
+        <member name="P:Lunar.Foto.DayInChinese">
+            <summary>
+            中文日
+            </summary>
+        </member>
+        <member name="P:Lunar.Foto.Festivals">
+            <summary>
+            因果犯忌
+            </summary>
+        </member>
+        <member name="P:Lunar.Foto.OtherFestivals">
+            <summary>
+            纪念日
+            </summary>
+        </member>
+        <member name="P:Lunar.Foto.MonthZhai">
+            <summary>
+            月斋
+            </summary>
+        </member>
+        <member name="P:Lunar.Foto.DayYangGong">
+            <summary>
+            杨公忌日
+            </summary>
+        </member>
+        <member name="P:Lunar.Foto.DayZhaiShuoWang">
+            <summary>
+            朔望斋日
+            </summary>
+        </member>
+        <member name="P:Lunar.Foto.DayZhaiSix">
+            <summary>
+            六斋日
+            </summary>
+        </member>
+        <member name="P:Lunar.Foto.DayZhaiTen">
+            <summary>
+            十斋日
+            </summary>
+        </member>
+        <member name="P:Lunar.Foto.DayZhaiGuanYin">
+            <summary>
+            观音斋日
+            </summary>
+        </member>
+        <member name="P:Lunar.Foto.Xiu">
+            <summary>
+            宿
+            </summary>
+        </member>
+        <member name="P:Lunar.Foto.XiuLuck">
+            <summary>
+            宿吉凶
+            </summary>
+        </member>
+        <member name="P:Lunar.Foto.XiuSong">
+            <summary>
+            宿歌诀
+            </summary>
+        </member>
+        <member name="P:Lunar.Foto.Zheng">
+            <summary>
+            政
+            </summary>
+        </member>
+        <member name="P:Lunar.Foto.Animal">
+            <summary>
+            动物
+            </summary>
+        </member>
+        <member name="P:Lunar.Foto.Gong">
+            <summary>
+            宫
+            </summary>
+        </member>
+        <member name="P:Lunar.Foto.Shou">
+            <summary>
+            兽
+            </summary>
+        </member>
+        <member name="P:Lunar.Foto.FullString">
+            <summary>
+            完整字符串输出
+            </summary>
+        </member>
+        <member name="M:Lunar.Foto.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:Lunar.FotoFestival">
+            <summary>
+            佛历因果犯忌
+            </summary>
+        </member>
+        <member name="P:Lunar.FotoFestival.Name">
+            <summary>
+            是日何日，如：雷斋日
+            </summary>
+        </member>
+        <member name="P:Lunar.FotoFestival.Result">
+            <summary>
+            犯之因果，如：犯者夺纪
+            </summary>
+        </member>
+        <member name="P:Lunar.FotoFestival.EveryMonth">
+            <summary>
+            是否每月同
+            </summary>
+        </member>
+        <member name="P:Lunar.FotoFestival.Remark">
+            <summary>
+            备注，如：宜先一日即戒
+            </summary>
+        </member>
+        <member name="M:Lunar.FotoFestival.#ctor(System.String,System.String,System.Boolean,System.String)">
+            <summary>
+            创建佛历因果犯忌
+            </summary>
+            <param name="name">是日何日</param>
+            <param name="result">犯之因果</param>
+            <param name="everyMonth">是否每月同</param>
+            <param name="remark">备注</param>
+        </member>
+        <member name="P:Lunar.FotoFestival.FullString">
+            <summary>
+            完整字符串输出
+            </summary>
+        </member>
+        <member name="M:Lunar.FotoFestival.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:Lunar.Fu">
+            <summary>
+            三伏
+            从夏至后第3个庚日算起，初伏为10天，中伏为10天或20天，末伏为10天。当夏至与立秋之间出现4个庚日时中伏为10天，出现5个庚日则为20天。
+            </summary>
+        </member>
+        <member name="P:Lunar.Fu.Name">
+            <summary>
+            名称：初伏、中伏、末伏
+            </summary>
+        </member>
+        <member name="P:Lunar.Fu.Index">
+            <summary>
+            当前入伏第几天，1-20
+            </summary>
+        </member>
+        <member name="M:Lunar.Fu.#ctor">
+            <summary>
+            创建伏
+            </summary>
+        </member>
+        <member name="M:Lunar.Fu.#ctor(System.String,System.Int32)">
+            <summary>
+            创建伏
+            </summary>
+            <param name="name">名称</param>
+            <param name="index">当前入伏第几天</param>
+        </member>
+        <member name="P:Lunar.Fu.FullString">
+            <summary>
+            完整字符串输出
+            </summary>
+        </member>
+        <member name="M:Lunar.Fu.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:Lunar.Holiday">
+            <summary>
+            节假日
+            </summary>
+        </member>
+        <member name="P:Lunar.Holiday.Day">
+            <summary>
+            日期，YYYY-MM-DD
+            </summary>
+        </member>
+        <member name="P:Lunar.Holiday.Name">
+            <summary>
+            名称，如：国庆节
+            </summary>
+        </member>
+        <member name="P:Lunar.Holiday.Work">
+            <summary>
+            是否调休，即是否要上班
+            </summary>
+        </member>
+        <member name="P:Lunar.Holiday.Target">
+            <summary>
+            关联的节日，YYYY-MM-DD格式
+            </summary>
+        </member>
+        <member name="M:Lunar.Holiday.#ctor">
+            <summary>
+            初始化
+            </summary>
+        </member>
+        <member name="M:Lunar.Holiday.#ctor(System.String,System.String,System.Boolean,System.String)">
+            <summary>
+            初始化
+            </summary>
+            <param name="day">日期</param>
+            <param name="name">名称</param>
+            <param name="work">是否调休</param>
+            <param name="target">关联的节日</param>
+        </member>
+        <member name="M:Lunar.Holiday.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:Lunar.JieQi">
+            <summary>
+            节气
+            </summary>
+        </member>
+        <member name="P:Lunar.JieQi.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Lunar.JieQi.Solar">
+            <summary>
+            阳历日期
+            </summary>
+        </member>
+        <member name="P:Lunar.JieQi.Jie">
+            <summary>
+            是否节令
+            </summary>
+        </member>
+        <member name="P:Lunar.JieQi.Qi">
+            <summary>
+            是否气令
+            </summary>
+        </member>
+        <member name="M:Lunar.JieQi.#ctor">
+            <summary>
+            初始化
+            </summary>
+        </member>
+        <member name="M:Lunar.JieQi.#ctor(System.String,Lunar.Solar)">
+            <summary>
+            初始化
+            </summary>
+            <param name="name">名称</param>
+            <param name="solar">阳历日期</param>
+        </member>
+        <member name="M:Lunar.JieQi.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:Lunar.Lunar">
+            <summary>
+            农历日期
+            </summary>
+        </member>
+        <member name="F:Lunar.Lunar.JIE_QI">
+            <summary>
+            节气表，国标以冬至为首个节气
+            </summary>
+        </member>
+        <member name="F:Lunar.Lunar.JIE_QI_IN_USE">
+            <summary>
+            实际的节气表
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.Year">
+            <summary>
+            农历年
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.Month">
+            <summary>
+            农历月，闰月为负，即闰2月=-2
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.Day">
+            <summary>
+            农历日
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.Solar">
+            <summary>
+            对应阳历
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.TimeGanIndex">
+            <summary>
+            时对应的天干下标，0-9
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.TimeZhiIndex">
+            <summary>
+            时对应的地支下标，0-11
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.DayGanIndex">
+            <summary>
+            日对应的天干下标，0-9
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.DayZhiIndex">
+            <summary>
+            日对应的地支下标，0-11
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.DayGanIndexExact">
+            <summary>
+            日对应的天干下标（八字流派1，晚子时日柱算明天），0-9
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.DayZhiIndexExact">
+            <summary>
+            日对应的地支下标（八字流派1，晚子时日柱算明天），0-11
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.DayGanIndexExact2">
+            <summary>
+            日对应的天干下标（八字流派2，晚子时日柱算当天），0-9
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.DayZhiIndexExact2">
+            <summary>
+            日对应的地支下标（八字流派2，晚子时日柱算当天），0-11
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.MonthGanIndex">
+            <summary>
+            月对应的天干下标（以节交接当天起算），0-9
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.MonthZhiIndex">
+            <summary>
+            月对应的地支下标（以节交接当天起算），0-11
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.MonthGanIndexExact">
+            <summary>
+            月对应的天干下标（八字流派1，晚子时日柱算明天），0-9
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.MonthZhiIndexExact">
+            <summary>
+            月对应的地支下标（八字流派1，晚子时日柱算明天），0-11
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.YearGanIndex">
+            <summary>
+            年对应的天干下标（国标，以正月初一为起点），0-9
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.YearZhiIndex">
+            <summary>
+            年对应的地支下标（国标，以正月初一为起点），0-11
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.YearGanIndexByLiChun">
+            <summary>
+            年对应的天干下标（月干计算用，以立春为起点），0-9
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.YearZhiIndexByLiChun">
+            <summary>
+            年对应的地支下标（月支计算用，以立春为起点），0-11
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.YearGanIndexExact">
+            <summary>
+            年对应的天干下标（最精确的，供八字用，以立春交接时刻为起点），0-9
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.YearZhiIndexExact">
+            <summary>
+            年对应的地支下标（最精确的，供八字用，以立春交接时刻为起点），0-11
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.WeekIndex">
+            <summary>
+            周下标，0-6
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.Hour">
+            <summary>
+            阳历小时
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.Minute">
+            <summary>
+            阳历分钟
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.Second">
+            <summary>
+            阳历秒钟
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.JieQiTable">
+            <summary>
+            节气表
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.EightChar">
+            <summary>
+            八字
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.Foto">
+            <summary>
+            佛历
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.Tao">
+            <summary>
+            道历
+            </summary>
+        </member>
+        <member name="M:Lunar.Lunar.#ctor">
+            <summary>
+            默认使用当前日期初始化
+            </summary>
+        </member>
+        <member name="M:Lunar.Lunar.#ctor(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            通过农历年月日时分秒初始化
+            </summary>
+            <param name="lunarYear">年（农历）</param>
+            <param name="lunarMonth">月（农历），1到12，闰月为负，即闰2月=-2</param>
+            <param name="lunarDay">日（农历），1到31</param>
+            <param name="hour">小时（阳历）</param>
+            <param name="minute">分钟（阳历）</param>
+            <param name="second">秒钟（阳历）</param>
+        </member>
+        <member name="M:Lunar.Lunar.#ctor(Lunar.Solar)">
+            <summary>
+            通过阳历初始化
+            </summary>
+            <param name="solar">阳历</param>
+        </member>
+        <member name="M:Lunar.Lunar.#ctor(System.DateTime)">
+            <summary>
+            通过阳历日期初始化
+            </summary>
+            <param name="date">阳历日期</param>
+        </member>
+        <member name="M:Lunar.Lunar.ComputeJieQi(Lunar.LunarYear)">
+            <summary>
+            计算节气表
+            </summary>
+        </member>
+        <member name="M:Lunar.Lunar.ComputeYear">
+            <summary>
+            计算干支纪年
+            </summary>
+        </member>
+        <member name="M:Lunar.Lunar.ComputeMonth">
+            干支纪月计算
+        </member>
+        <member name="M:Lunar.Lunar.ComputeDay">
+            <summary>
+            干支纪日计算
+            </summary>
+        </member>
+        <member name="M:Lunar.Lunar.ComputeTime">
+            <summary>
+            干支纪时计算
+            </summary>
+        </member>
+        <member name="M:Lunar.Lunar.FromDate(System.DateTime)">
+            <summary>
+            通过指定阳历日期获取农历
+            </summary>
+            <param name="date">阳历日期</param>
+            <returns>农历</returns>
+        </member>
+        <member name="M:Lunar.Lunar.FromYmdHms(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            通过指定农历年月日时分秒获取农历
+            </summary>
+            <param name="lunarYear">年（农历）</param>
+            <param name="lunarMonth">月（农历），1到12，闰月为负，即闰2月=-2</param>
+            <param name="lunarDay">日（农历），1到31</param>
+            <param name="hour">小时（阳历）</param>
+            <param name="minute">分钟（阳历）</param>
+            <param name="second">秒钟（阳历）</param>
+            <returns>农历</returns>
+        </member>
+        <member name="P:Lunar.Lunar.YearGan">
+            <summary>
+            年天干（以正月初一作为新年的开始），如辛
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.YearGanByLiChun">
+            <summary>
+            年天干（以立春当天作为新年的开始），如辛
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.YearGanExact">
+            <summary>
+            最精确的年天干（以立春交接的时刻作为新年的开始），如辛
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.MonthGan">
+            <summary>
+            月天干，如己
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.MonthGanExact">
+            <summary>
+            精确的月天干（以节交接时刻起算），如己
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.DayGan">
+            <summary>
+            日天干，如甲
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.DayGanExact">
+            <summary>
+            日天干（八字流派1，晚子时日柱算明天），如甲
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.DayGanExact2">
+            <summary>
+            日天干（八字流派2，晚子时日柱算当天），如甲
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.YearZhi">
+            <summary>
+            年地支（以正月初一作为新年的开始），如亥
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.YearZhiByLiChun">
+            <summary>
+            年地支（以立春当天作为新年的开始），如亥
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.YearZhiExact">
+            <summary>
+            最精确的年地支（以立春交接的时刻作为新年的开始），如亥
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.MonthZhi">
+            <summary>
+            月地支，如卯
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.MonthZhiExact">
+            <summary>
+            精确的月地支（以节交接时刻起算），如卯
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.DayZhi">
+            <summary>
+            日地支，如卯
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.DayZhiExact">
+            <summary>
+            日地支（八字流派1，晚子时日柱算明天），如卯
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.DayZhiExact2">
+            <summary>
+            日地支（八字流派2，晚子时日柱算当天），如卯
+            </summary>
+            <returns>日地支</returns>
+        </member>
+        <member name="P:Lunar.Lunar.YearInGanZhi">
+            <summary>
+            干支纪年（年柱）（以正月初一作为新年的开始），如辛亥
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.YearInGanZhiByLiChun">
+            <summary>
+            干支纪年（年柱）（以立春当天作为新年的开始），如辛亥
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.YearInGanZhiExact">
+            <summary>
+            干支纪年（年柱）（以立春交接的时刻作为新年的开始），如辛亥
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.MonthInGanZhi">
+            <summary>
+            干支纪月（月柱）（以节交接当天起算），如己卯，月天干口诀：甲己丙寅首，乙庚戊寅头。丙辛从庚寅，丁壬壬寅求，戊癸甲寅居，周而复始流。月地支：正月起寅。
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.MonthInGanZhiExact">
+            <summary>
+            精确的干支纪月（月柱）（以节交接时刻起算），如己卯，月天干口诀：甲己丙寅首，乙庚戊寅头。丙辛从庚寅，丁壬壬寅求，戊癸甲寅居，周而复始流。月地支：正月起寅。
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.DayInGanZhi">
+            <summary>
+            干支纪日（日柱），如己卯
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.DayInGanZhiExact">
+            <summary>
+            干支纪日（日柱，八字流派1，晚子时日柱算明天），如己卯
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.DayInGanZhiExact2">
+            <summary>
+            干支纪日（日柱，八字流派2，晚子时日柱算当天），如己卯
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.YearShengXiao">
+            <summary>
+            年生肖（以正月初一起算），如虎
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.YearShengXiaoByLiChun">
+            <summary>
+            年生肖（以立春当天起算），如虎
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.YearShengXiaoExact">
+            <summary>
+            精确的年生肖（以立春交接时刻起算），如虎
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.MonthShengXiao">
+            <summary>
+            月生肖，如虎
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.DayShengXiao">
+            <summary>
+            日生肖，如虎
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.TimeShengXiao">
+            <summary>
+            时辰生肖，如虎
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.YearInChinese">
+            <summary>
+            中文年，如二〇〇一
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.MonthInChinese">
+            <summary>
+            中文月，如正
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.DayInChinese">
+            <summary>
+            中文日，如初一
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.TimeZhi">
+            <summary>
+            时辰地支
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.TimeGan">
+            <summary>
+            时辰天干
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.TimeInGanZhi">
+            <summary>
+            时辰干支（时柱）
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.Season">
+            <summary>
+            农历季节
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.Jie">
+            <summary>
+            节令
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.Qi">
+            <summary>
+            气令
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.Week">
+            <summary>
+            星期，0123456，0代表周日，1代表周一
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.WeekInChinese">
+            <summary>
+            星期中文，日一二三四五六
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.Xiu">
+            <summary>
+            宿
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.XiuLuck">
+            <summary>
+            宿吉凶，吉/凶
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.XiuSong">
+            <summary>
+            宿歌诀
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.Zheng">
+            <summary>
+            政
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.Animal">
+            <summary>
+            动物
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.Gong">
+            <summary>
+            宫
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.Shou">
+            <summary>
+            兽
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.Festivals">
+            <summary>
+            节日列表，有可能一天会有多个节日
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.OtherFestivals">
+            <summary>
+            非正式的节日列表，有可能一天会有多个节日，如中元节
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.PengZuGan">
+            <summary>
+            彭祖百忌天干
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.PengZuZhi">
+            <summary>
+            彭祖百忌地支
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.DayPositionXi">
+            <summary>
+            日喜神方位，如艮
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.DayPositionXiDesc">
+            <summary>
+            日喜神方位描述，如东北
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.DayPositionYangGui">
+            <summary>
+            日阳贵神方位，如艮
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.DayPositionYangGuiDesc">
+            <summary>
+            日阳贵神方位描述，如东北
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.DayPositionYinGui">
+            <summary>
+            日阴贵神方位，如艮
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.DayPositionYinGuiDesc">
+            <summary>
+            日阴贵神方位描述，如东北
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.DayPositionFu">
+            <summary>
+            日福神方位，流派2，如艮
+            </summary>
+        </member>
+        <member name="M:Lunar.Lunar.GetDayPositionFu(System.Int32)">
+            <summary>
+            获取日福神方位
+            </summary>
+            <param name="sect">流派，可选1或2</param>
+            <returns>福神方位，如艮</returns>
+        </member>
+        <member name="P:Lunar.Lunar.DayPositionFuDesc">
+            <summary>
+            日福神方位描述，如东北
+            </summary>
+        </member>
+        <member name="M:Lunar.Lunar.GetDayPositionFuDesc(System.Int32)">
+            <summary>
+            获取日福神方位描述
+            </summary>
+            <param name="sect">流派，可选1或2</param>
+            <returns>方位描述，如东北</returns>
+        </member>
+        <member name="P:Lunar.Lunar.DayPositionCai">
+            <summary>
+            日财神方位，如艮
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.DayPositionCaiDesc">
+            <summary>
+            日财神方位描述，如东北
+            </summary>
+        </member>
+        <member name="M:Lunar.Lunar.GetYearPositionTaiSui(System.Int32)">
+            <summary>
+            获取年太岁方位
+            </summary>
+            <param name="sect">流派：2为新年以立春零点起算；1为新年以正月初一起算；3为新年以立春节气交接的时刻起算</param>
+            <returns>方位</returns>
+        </member>
+        <member name="P:Lunar.Lunar.YearPositionTaiSui">
+            <summary>
+            年太岁方位（流派2新年以立春零点起算）
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.YearPositionTaiSuiDesc">
+            <summary>
+            年太岁方位描述（流派2新年以立春零点起算），如东北
+            </summary>
+        </member>
+        <member name="M:Lunar.Lunar.GetYearPositionTaiSuiDesc(System.Int32)">
+            <summary>
+            年太岁方位描述
+            </summary>
+            <param name="sect">流派：2为新年以立春零点起算；1为新年以正月初一起算；3为新年以立春节气交接的时刻起算</param>
+            <returns>方位描述，如东北</returns>
+        </member>
+        <member name="M:Lunar.Lunar.GetMonthPositionTaiSui(System.Int32,System.Int32)">
+            <summary>
+            计算月太岁方
+            </summary>
+            <param name="monthZhiIndex">月支序号</param>
+            <param name="monthGanIndex">月干序号</param>
+            <returns>太岁方</returns>
+        </member>
+        <member name="P:Lunar.Lunar.MonthPositionTaiSui">
+            <summary>
+            月太岁方位（流派2新的一月以节交接当天零点起算），如艮
+            </summary>
+        </member>
+        <member name="M:Lunar.Lunar.GetMonthPositionTaiSui(System.Int32)">
+            <summary>
+            获取月太岁方位
+            </summary>
+            <param name="sect">流派：2为新的一月以节交接当天零点起算；3为新的一月以节交接准确时刻起算</param>
+            <returns>方位，如艮</returns>
+        </member>
+        <member name="P:Lunar.Lunar.MonthPositionTaiSuiDesc">
+            <summary>
+            月太岁方位描述（流派2新的一月以节交接当天零点起算），如东北
+            </summary>
+        </member>
+        <member name="M:Lunar.Lunar.GetMonthPositionTaiSuiDesc(System.Int32)">
+            <summary>
+            获取月太岁方位描述
+            </summary>
+            <param name="sect">流派：2为新的一月以节交接当天零点起算；3为新的一月以节交接准确时刻起算</param>
+            <returns>方位描述，如东北</returns>
+        </member>
+        <member name="M:Lunar.Lunar.GetDayPositionTaiSui(System.String,System.Int32)">
+            <summary>
+            计算日太岁方
+            </summary>
+            <param name="dayInGanZhi">日干序号</param>
+            <param name="yearZhiIndex">年支序号</param>
+            <returns>太岁方</returns>
+        </member>
+        <member name="P:Lunar.Lunar.DayPositionTaiSui">
+            <summary>
+            获取日太岁方位（流派2新年以立春零点起算），如艮
+            </summary>
+        </member>
+        <member name="M:Lunar.Lunar.GetDayPositionTaiSui(System.Int32)">
+            <summary>
+            获取日太岁方位
+            </summary>
+            <param name="sect">流派：2新年以立春零点起算；1新年以正月初一起算；3新年以立春节气交接的时刻起算</param>
+            <returns>方位，如艮</returns>
+        </member>
+        <member name="P:Lunar.Lunar.DayPositionTaiSuiDesc">
+            <summary>
+            日太岁方位描述（流派2新年以立春零点起算），如东北
+            </summary>
+        </member>
+        <member name="M:Lunar.Lunar.GetDayPositionTaiSuiDesc(System.Int32)">
+            <summary>
+            获取日太岁方位描述
+            </summary>
+            <param name="sect">流派：2新年以立春零点起算；1新年以正月初一起算；3新年以立春节气交接的时刻起算</param>
+            <returns>方位描述，如东北</returns>
+        </member>
+        <member name="P:Lunar.Lunar.TimePositionXi">
+            <summary>
+            时辰喜神方位，如艮
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.TimePositionXiDesc">
+            <summary>
+            时辰喜神方位描述，如东北
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.TimePositionYangGui">
+            <summary>
+            时辰阳贵神方位，如艮
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.TimePositionYangGuiDesc">
+            <summary>
+            时辰阳贵神方位描述，如东北
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.TimePositionYinGui">
+            <summary>
+            时辰阴贵神方位，如艮
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.TimePositionYinGuiDesc">
+            <summary>
+            时辰阴贵神方位描述，如东北
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.TimePositionFu">
+            <summary>
+            时辰福神方位（流派2），如艮
+            </summary>
+        </member>
+        <member name="M:Lunar.Lunar.GetTimePositionFu(System.Int32)">
+            <summary>
+            获取时辰福神方位
+            </summary>
+            <param name="sect">流派，可选1或2</param>
+            <returns>福神方位，如艮</returns>
+        </member>
+        <member name="P:Lunar.Lunar.TimePositionFuDesc">
+            <summary>
+            时辰福神方位描述（流派2），如东北
+            </summary>
+        </member>
+        <member name="M:Lunar.Lunar.GetTimePositionFuDesc(System.Int32)">
+            <summary>
+            获取时辰福神方位描述
+            </summary>
+            <param name="sect">流派，可选1或2</param>
+            <returns>福神方位描述，如东北</returns>
+        </member>
+        <member name="P:Lunar.Lunar.TimePositionCai">
+            <summary>
+            时辰财神方位，如艮
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.TimePositionCaiDesc">
+            <summary>
+            时辰财神方位描述，如东北
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.DayChong">
+            <summary>
+            日冲，如申
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.TimeChong">
+            <summary>
+            时冲，如申
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.DayChongGan">
+            <summary>
+            无情之克的日冲天干，如甲
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.TimeChongGan">
+            <summary>
+            无情之克的时冲天干，如甲
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.DayChongGanTie">
+            <summary>
+            有情之克的日冲天干，如甲
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.TimeChongGanTie">
+            <summary>
+            有情之克的时冲天干，如甲
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.DayChongShengXiao">
+            <summary>
+            日冲生肖，如猴
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.TimeChongShengXiao">
+            <summary>
+            时冲生肖，如猴
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.DayChongDesc">
+            <summary>
+            日冲描述，如(壬申)猴
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.TimeChongDesc">
+            <summary>
+            时冲描述，如(壬申)猴
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.DaySha">
+            <summary>
+            日煞，如北
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.TimeSha">
+            <summary>
+            时煞，如北
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.YearNaYin">
+            <summary>
+            年纳音，如剑锋金
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.MonthNaYin">
+            <summary>
+            月纳音，如剑锋金
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.DayNaYin">
+            <summary>
+            日纳音，如剑锋金
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.TimeNaYin">
+            <summary>
+            时辰纳音，如剑锋金
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.ZhiXing">
+            <summary>
+            十二执星：建、除、满、平、定、执、破、危、成、收、开、闭。当月支与日支相同即为建，依次类推
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.DayTianShen">
+            <summary>
+            值日天神
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.TimeTianShen">
+            <summary>
+            值时天神
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.DayTianShenType">
+            <summary>
+            值日天神类型：黄道/黑道
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.TimeTianShenType">
+            <summary>
+            值时天神类型：黄道/黑道
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.DayTianShenLuck">
+            <summary>
+            值日天神吉凶：吉/凶
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.TimeTianShenLuck">
+            <summary>
+            值时天神吉凶：吉/凶
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.DayPositionTai">
+            <summary>
+            逐日胎神方位
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.MonthPositionTai">
+            <summary>
+            逐月胎神方位，闰月无
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.DayYi">
+            <summary>
+            日宜，如果没有，返回["无"]，默认流派1
+            </summary>
+        </member>
+        <member name="M:Lunar.Lunar.GetDayYi(System.Int32)">
+            <summary>
+            日宜，如果没有，返回["无"]
+            </summary>
+            <param name="sect">流派，1以节交接当天起算月，2以节交接时刻起算月</param>
+            <returns>宜</returns>
+        </member>
+        <member name="P:Lunar.Lunar.DayJi">
+            <summary>
+            日忌，如果没有，返回["无"]，默认流派1
+            </summary>
+        </member>
+        <member name="M:Lunar.Lunar.GetDayJi(System.Int32)">
+            <summary>
+            日忌，如果没有，返回["无"]
+            </summary>
+            <param name="sect">流派，1以节交接当天起算月，2以节交接时刻起算月</param>
+            <returns>忌</returns>
+        </member>
+        <member name="P:Lunar.Lunar.DayJiShen">
+            <summary>
+            日吉神（宜趋），如果没有，返回["无"]
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.DayXiongSha">
+            <summary>
+            日凶煞（宜忌），如果没有，返回["无"]
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.TimeYi">
+            <summary>
+            时辰宜，如果没有，返回["无"]
+            </summary>
+            <returns>宜</returns>
+        </member>
+        <member name="P:Lunar.Lunar.TimeJi">
+            <summary>
+            时辰忌，如果没有，返回["无"]
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.YueXiang">
+            <summary>
+            月相
+            </summary>
+        </member>
+        <member name="M:Lunar.Lunar.GetYearNineStar(System.String)">
+            <summary>
+            计算年九星
+            </summary>
+            <param name="yearInGanZhi">年干支</param>
+            <returns>九星</returns>
+        </member>
+        <member name="M:Lunar.Lunar.GetYearNineStar(System.Int32)">
+            <summary>
+            获取值年九星（流年紫白星起例歌诀：年上吉星论甲子，逐年星逆中宫起；上中下作三元汇，一上四中七下兑。）
+            </summary>
+            <param name="sect">流派：2为新年以立春零点起算；1为新年以正月初一起算；3为新年以立春节气交接的时刻起算</param>
+            <returns>九星</returns>
+        </member>
+        <member name="P:Lunar.Lunar.YearNineStar">
+            <summary>
+            值年九星（流派2新年以立春零点起算。流年紫白星起例歌诀：年上吉星论甲子，逐年星逆中宫起；上中下作三元汇，一上四中七下兑。）
+            </summary>
+        </member>
+        <member name="M:Lunar.Lunar.GetMonthNineStar(System.Int32,System.Int32)">
+            <summary>
+            计算月九星
+            </summary>
+            <param name="yearZhiIndex">年支序号</param>
+            <param name="monthZhiIndex">月支序号</param>
+            <returns>九星</returns>
+        </member>
+        <member name="M:Lunar.Lunar.GetMonthNineStar(System.Int32)">
+            <summary>
+            获取值月九星（月紫白星歌诀：子午卯酉八白起，寅申巳亥二黑求，辰戌丑未五黄中。）
+            </summary>
+            <param name="sect">流派：2为新的一月以节交接当天零点起算；3为新的一月以节交接准确时刻起算</param>
+            <returns>九星</returns>
+        </member>
+        <member name="P:Lunar.Lunar.MonthNineStar">
+            <summary>
+            值月九星（流派2新的一月以节交接当天零点起算。月紫白星歌诀：子午卯酉八白起，寅申巳亥二黑求，辰戌丑未五黄中。）
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.DayNineStar">
+            <summary>
+            值日九星（日家紫白星歌诀：日家白法不难求，二十四气六宫周；冬至雨水及谷雨，阳顺一七四中游；夏至处暑霜降后，九三六星逆行求。）
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.TimeNineStar">
+            <summary>
+            值时九星（时家紫白星歌诀：三元时白最为佳，冬至阳生顺莫差，孟日七宫仲一白，季日四绿发萌芽，每把时辰起甲子，本时星耀照光华，时星移入中宫去，顺飞八方逐细查。夏至阴生逆回首，孟归三碧季加六，仲在九宫时起甲，依然掌中逆轮跨。）
+            </summary>
+        </member>
+        <member name="M:Lunar.Lunar.GetNextJie(System.Boolean)">
+            <summary>
+            获取下一节（顺推的第一个节）
+            </summary>
+            <param name="wholeDay">是否按天计</param>
+            <returns>节气</returns>
+        </member>
+        <member name="M:Lunar.Lunar.GetPrevJie(System.Boolean)">
+            <summary>
+            获取上一节（逆推的第一个节）
+            </summary>
+            <param name="wholeDay">是否按天计</param>
+            <returns>节气</returns>
+        </member>
+        <member name="M:Lunar.Lunar.GetNextQi(System.Boolean)">
+            <summary>
+            获取下一气令（顺推的第一个气令）
+            </summary>
+            <param name="wholeDay">是否按天计</param>
+            <returns>节气</returns>
+        </member>
+        <member name="M:Lunar.Lunar.GetPrevQi(System.Boolean)">
+            <summary>
+            获取上一气令（逆推的第一个气令）
+            </summary>
+            <param name="wholeDay">是否按天计</param>
+            <returns>节气</returns>
+        </member>
+        <member name="M:Lunar.Lunar.GetNextJieQi(System.Boolean)">
+            <summary>
+            获取下一节气（顺推的第一个节气）
+            </summary>
+            <param name="wholeDay">是否按天计</param>
+            <returns>节气</returns>
+        </member>
+        <member name="M:Lunar.Lunar.GetPrevJieQi(System.Boolean)">
+            <summary>
+            获取上一节气（逆推的第一个节气）
+            </summary>
+            <param name="wholeDay">是否按天计</param>
+            <returns>节气</returns>
+        </member>
+        <member name="M:Lunar.Lunar.GetNearJieQi(System.Boolean,System.String[],System.Boolean)">
+            <summary>
+            获取最近的节气，如果未找到匹配的，返回null
+            </summary>
+            <param name="forward">是否顺推，true为顺推，false为逆推</param>
+            <param name="conditions">过滤条件，如果设置过滤条件，仅返回匹配该名称的</param>
+            <param name="wholeDay">是否按天计</param>
+            <returns>节气</returns>
+        </member>
+        <member name="M:Lunar.Lunar.ConvertJieQi(System.String)">
+            <summary>
+            转节气名
+            </summary>
+            <param name="name">节气名</param>
+            <returns>正式的节气名</returns>
+        </member>
+        <member name="P:Lunar.Lunar.JieQi">
+            <summary>
+            节气名称，如果无节气，返回空字符串
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.CurrentJieQi">
+            <summary>
+            当天节气对象，如果无节气，返回null
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.CurrentJie">
+            <summary>
+            当天节令对象，如果无节令，返回null
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.CurrentQi">
+            <summary>
+            当天气令对象，如果无气令，返回null
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.FullString">
+            <summary>
+            完整字符串输出
+            </summary>
+        </member>
+        <member name="M:Lunar.Lunar.ToString">
+            <inheritdoc />
+        </member>
+        <member name="M:Lunar.Lunar.Next(System.Int32)">
+            <summary>
+            获取往后推几天的农历日期，如果要往前推，则天数用负数
+            </summary>
+            <param name="days">天数</param>
+            <returns>农历日期</returns>
+        </member>
+        <member name="P:Lunar.Lunar.YearXun">
+            <summary>
+            年所在旬（以正月初一作为新年的开始）
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.YearXunByLiChun">
+            <summary>
+            年所在旬（以立春当天作为新年的开始）
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.YearXunExact">
+            <summary>
+            年所在旬（以立春交接时刻作为新年的开始）
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.YearXunKong">
+            <summary>
+            值年空亡(旬空)（以正月初一作为新年的开始）
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.YearXunKongByLiChun">
+            <summary>
+            值年空亡(旬空)（以立春当天作为新年的开始）
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.YearXunKongExact">
+            <summary>
+            值年空亡(旬空)（以立春交接时刻作为新年的开始）
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.MonthXun">
+            <summary>
+            月所在旬（以节交接当天起算）
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.MonthXunExact">
+            <summary>
+            月所在旬（以节交接时刻起算）
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.MonthXunKong">
+            <summary>
+            值月空亡(旬空)（以节交接当天起算）
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.MonthXunKongExact">
+            <summary>
+            值月空亡(旬空)（以节交接时刻起算）
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.DayXun">
+            <summary>
+            日所在旬（以节交接当天起算）
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.DayXunExact">
+            <summary>
+            日所在旬（八字流派1，晚子时日柱算明天）
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.DayXunExact2">
+            <summary>
+            日所在旬（八字流派2，晚子时日柱算当天）
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.DayXunKong">
+            <summary>
+            值日空亡(旬空)
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.DayXunKongExact">
+            <summary>
+            值日空亡(旬空)（八字流派1，晚子时日柱算明天）
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.DayXunKongExact2">
+            <summary>
+            值日空亡(旬空)（八字流派2，晚子时日柱算当天）
+            </summary>
+            <returns>空亡(旬空)</returns>
+        </member>
+        <member name="P:Lunar.Lunar.TimeXun">
+            <summary>
+            时辰所在旬
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.TimeXunKong">
+            <summary>
+            值时空亡(旬空)
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.ShuJiu">
+            <summary>
+            数九，如果不是数九天，返回null
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.Fu">
+            <summary>
+            三伏，如果不是伏天，返回null
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.LiuYao">
+            <summary>
+            六曜
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.WuHou">
+            <summary>
+            物候
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.Hou">
+            <summary>
+            候
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.DayLu">
+            <summary>
+            日禄
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.Time">
+            <summary>
+            时辰
+            </summary>
+        </member>
+        <member name="P:Lunar.Lunar.Times">
+            <summary>
+            当天的时辰列表
+            </summary>
+        </member>
+        <member name="T:Lunar.LunarMonth">
+            <summary>
+            农历月
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarMonth.Year">
+            <summary>
+            农历年
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarMonth.Month">
+            <summary>
+            农历月：1-12，闰月为负数，如闰2月为-2
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarMonth.DayCount">
+            <summary>
+            天数，大月30天，小月29天
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarMonth.FirstJulianDay">
+            <summary>
+            初一的儒略日
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarMonth.Index">
+            <summary>
+            序号
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarMonth.ZhiIndex">
+            <summary>
+            地支序号
+            </summary>
+        </member>
+        <member name="M:Lunar.LunarMonth.#ctor(System.Int32,System.Int32,System.Int32,System.Double,System.Int32)">
+            <summary>
+            初始化
+            </summary>
+            <param name="lunarYear">农历年</param>
+            <param name="lunarMonth">农历月：1-12，闰月为负数，如闰2月为-2</param>
+            <param name="dayCount">天数</param>
+            <param name="firstJulianDay">初一的儒略日</param>
+            <param name="index">序号</param>
+        </member>
+        <member name="M:Lunar.LunarMonth.FromYm(System.Int32,System.Int32)">
+            <summary>
+            通过农历年月初始化
+            </summary>
+            <param name="lunarYear">农历年</param>
+            <param name="lunarMonth">农历月：1-12，闰月为负数，如闰2月为-2</param>
+            <returns>农历月</returns>
+        </member>
+        <member name="P:Lunar.LunarMonth.Leap">
+            <summary>
+            是否闰月
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarMonth.GanIndex">
+            <summary>
+            天干序号
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarMonth.Gan">
+            <summary>
+            天干
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarMonth.Zhi">
+            <summary>
+            地支
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarMonth.GanZhi">
+            <summary>
+            干支
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarMonth.PositionXi">
+            <summary>
+            喜神方位
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarMonth.PositionXiDesc">
+            <summary>
+            喜神方位描述
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarMonth.PositionYangGui">
+            <summary>
+            阳贵神方位
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarMonth.PositionYangGuiDesc">
+            <summary>
+            阳贵神方位描述
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarMonth.PositionYinGui">
+            <summary>
+            阴贵神方位
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarMonth.PositionYinGuiDesc">
+            <summary>
+            阴贵神方位描述
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarMonth.PositionFu">
+            <summary>
+            福神方位
+            </summary>
+        </member>
+        <member name="M:Lunar.LunarMonth.GetPositionFu(System.Int32)">
+            <summary>
+            福神方位
+            </summary>
+            <param name="sect">流派</param>
+            <returns>福神方位</returns>
+        </member>
+        <member name="P:Lunar.LunarMonth.PositionFuDesc">
+            <summary>
+            福神方位描述
+            </summary>
+        </member>
+        <member name="M:Lunar.LunarMonth.GetPositionFuDesc(System.Int32)">
+            <summary>
+            福神方位描述
+            </summary>
+            <param name="sect">流派</param>
+            <returns>方位描述</returns>
+        </member>
+        <member name="P:Lunar.LunarMonth.PositionCai">
+            <summary>
+            财神方位
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarMonth.PositionCaiDesc">
+            <summary>
+            财神方位描述
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarMonth.PositionTaiSui">
+            <summary>
+            太岁方位，如艮
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarMonth.PositionTaiSuiDesc">
+            <summary>
+            太岁方位描述，如东北
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarMonth.NineStar">
+            <summary>
+            九星
+            </summary>
+        </member>
+        <member name="M:Lunar.LunarMonth.ToString">
+            <inheritdoc />
+        </member>
+        <member name="M:Lunar.LunarMonth.Next(System.Int32)">
+            <summary>
+            推移
+            </summary>
+            <param name="n">月数</param>
+            <returns>农历月</returns>
+        </member>
+        <member name="T:Lunar.LunarTime">
+            <summary>
+            时辰
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarTime.GanIndex">
+            <summary>
+            天干下标，0-9
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarTime.ZhiIndex">
+            <summary>
+            地支下标，0-11
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarTime.Lunar">
+            <summary>
+            阴历
+            </summary>
+        </member>
+        <member name="M:Lunar.LunarTime.#ctor(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            通过农历年月日时初始化
+            </summary>
+            <param name="lunarYear">年（农历）</param>
+            <param name="lunarMonth">月（农历），1到12，闰月为负，即闰2月=-2</param>
+            <param name="lunarDay">日（农历），1到31</param>
+            <param name="hour">小时（阳历）</param>
+            <param name="minute">分钟（阳历）</param>
+            <param name="second">秒钟（阳历）</param>
+        </member>
+        <member name="M:Lunar.LunarTime.FromYmdHms(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            通过指定农历年月日获取时辰
+            </summary>
+            <param name="lunarYear">年（农历）</param>
+            <param name="lunarMonth">月（农历），1到12，闰月为负，即闰2月=-2</param>
+            <param name="lunarDay">日（农历），1到31</param>
+            <param name="hour">小时（阳历）</param>
+            <param name="minute">分钟（阳历）</param>
+            <param name="second">秒钟（阳历）</param>
+            <returns>时辰</returns>
+        </member>
+        <member name="P:Lunar.LunarTime.ShengXiao">
+            <summary>
+            生肖，如虎
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarTime.Zhi">
+            <summary>
+            地支
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarTime.Gan">
+            <summary>
+            天干
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarTime.GanZhi">
+            <summary>
+            干支（时柱）
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarTime.PositionXi">
+            <summary>
+            喜神方位，如艮
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarTime.PositionXiDesc">
+            <summary>
+            喜神方位描述，如东北
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarTime.PositionYangGui">
+            <summary>
+            阳贵神方位，如艮
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarTime.PositionYangGuiDesc">
+            <summary>
+            阳贵神方位描述，如东北
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarTime.PositionYinGui">
+            <summary>
+            阴贵神方位，如艮
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarTime.PositionYinGuiDesc">
+            <summary>
+            阴贵神方位描述，如东北
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarTime.PositionFu">
+            <summary>
+            福神方位(流派2)，如艮
+            </summary>
+        </member>
+        <member name="M:Lunar.LunarTime.GetPositionFu(System.Int32)">
+            <summary>
+            获取福神方位
+            </summary>
+            <param name="sect">流派，可选1或2</param>
+            <returns>福神方位，如艮</returns>
+        </member>
+        <member name="P:Lunar.LunarTime.PositionFuDesc">
+            <summary>
+            福神方位描述(流派2)，如东北
+            </summary>
+        </member>
+        <member name="M:Lunar.LunarTime.GetPositionFuDesc(System.Int32)">
+            <summary>
+            获取福神方位描述
+            </summary>
+            <param name="sect">流派，可选1或2</param>
+            <returns>福神方位描述，如东北</returns>
+        </member>
+        <member name="P:Lunar.LunarTime.PositionCai">
+            <summary>
+            财神方位，如艮
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarTime.PositionCaiDesc">
+            <summary>
+            财神方位描述，如东北
+            </summary>
+            <returns>描述</returns>
+        </member>
+        <member name="P:Lunar.LunarTime.Chong">
+            <summary>
+            冲，如申
+            </summary>
+            <returns>描述</returns>
+        </member>
+        <member name="P:Lunar.LunarTime.ChongGan">
+            <summary>
+            无情之克的冲天干，如甲
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarTime.ChongGanTie">
+            <summary>
+            有情之克的冲天干，如甲
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarTime.ChongShengXiao">
+            <summary>
+            冲生肖，如猴
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarTime.ChongDesc">
+            <summary>
+            冲描述，如(壬申)猴
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarTime.Sha">
+            <summary>
+            煞，如北
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarTime.NaYin">
+            <summary>
+            纳音，如剑锋金
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarTime.TianShen">
+            <summary>
+            天神
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarTime.TianShenType">
+            <summary>
+            天神类型：黄道/黑道
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarTime.TianShenLuck">
+            <summary>
+            天神吉凶：吉/凶
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarTime.Yi">
+            <summary>
+            宜，如果没有，返回["无"]
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarTime.Ji">
+            <summary>
+            忌，如果没有，返回["无"]
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarTime.NineStar">
+            <summary>
+            九星（时家紫白星歌诀：三元时白最为佳，冬至阳生顺莫差，孟日七宫仲一白，季日四绿发萌芽，每把时辰起甲子，本时星耀照光华，时星移入中宫去，顺飞八方逐细查。夏至阴生逆回首，孟归三碧季加六，仲在九宫时起甲，依然掌中逆轮跨。）
+            </summary>
+        </member>
+        <member name="M:Lunar.LunarTime.ToString">
+            <inheritdoc />
+        </member>
+        <member name="P:Lunar.LunarTime.Xun">
+            <summary>
+            旬
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarTime.XunKong">
+            <summary>
+            空亡(旬空)
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarTime.MinHm">
+            <summary>
+            当前时辰的最早时分，如：21:00
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarTime.MaxHm">
+            <summary>
+            当前时辰的最晚时分，如：22:59
+            </summary>
+        </member>
+        <member name="T:Lunar.LunarYear">
+            <summary>
+            农历年
+            </summary>
+        </member>
+        <member name="F:Lunar.LunarYear.YUAN">
+            <summary>
+            元
+            </summary>
+        </member>
+        <member name="F:Lunar.LunarYear.YUN">
+            <summary>
+            运
+            </summary>
+        </member>
+        <member name="F:Lunar.LunarYear.LEAP_11">
+            <summary>
+            闰冬月年份
+            </summary>
+        </member>
+        <member name="F:Lunar.LunarYear.LEAP_12">
+            <summary>
+            闰腊月年份
+            </summary>
+        </member>
+        <member name="F:Lunar.LunarYear.YMC">
+            <summary>
+            月份
+            </summary>
+        </member>
+        <member name="F:Lunar.LunarYear.cacheYear">
+            <summary>
+            缓存年
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarYear.Year">
+            <summary>
+            年
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarYear.GanIndex">
+            <summary>
+            天干下标
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarYear.ZhiIndex">
+            <summary>
+            地支下标
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarYear.Months">
+            <summary>
+            月
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarYear.JieQiJulianDays">
+            <summary>
+            节气儒略日
+            </summary>
+        </member>
+        <member name="M:Lunar.LunarYear.#ctor(System.Int32)">
+            <summary>
+            通过农历年初始化
+            </summary>
+            <param name="lunarYear">农历年</param>
+        </member>
+        <member name="M:Lunar.LunarYear.FromYear(System.Int32)">
+            <summary>
+            通过农历年初始化
+            </summary>
+            <param name="lunarYear">农历年</param>
+            <returns>农历年</returns>
+        </member>
+        <member name="P:Lunar.LunarYear.Gan">
+            <summary>
+            天干
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarYear.Zhi">
+            <summary>
+            地支
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarYear.GanZhi">
+            <summary>
+            获取干支
+            </summary>
+        </member>
+        <member name="M:Lunar.LunarYear.GetMonth(System.Int32)">
+            <summary>
+            获取月份
+            </summary>
+            <param name="lunarMonth">月</param>
+            <returns>农历月</returns>
+        </member>
+        <member name="P:Lunar.LunarYear.LeapMonth">
+            <summary>
+            闰月
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarYear.DayCount">
+            <summary>
+            获取总天数
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarYear.MonthsInYear">
+            <summary>
+            获取当年的农历月们
+            </summary>
+        </member>
+        <member name="M:Lunar.LunarYear.ToString">
+            <inheritdoc />
+        </member>
+        <member name="P:Lunar.LunarYear.FullString">
+            <summary>
+            完整字符串输出
+            </summary>
+        </member>
+        <member name="M:Lunar.LunarYear.GetZaoByGan(System.Int32,System.String)">
+            <summary>
+            按天干计算灶马头
+            </summary>
+            <param name="index">天干序号</param>
+            <param name="name">名称</param>
+            <returns>灶马头</returns>
+        </member>
+        <member name="M:Lunar.LunarYear.GetZaoByZhi(System.Int32,System.String)">
+            <summary>
+            按地支计算灶马头
+            </summary>
+            <param name="index">地支序号</param>
+            <param name="name">名称</param>
+            <returns>灶马头</returns>
+        </member>
+        <member name="P:Lunar.LunarYear.TouLiang">
+            <summary>
+            几鼠偷粮
+            </summary>
+            <returns>几鼠偷粮</returns>
+        </member>
+        <member name="P:Lunar.LunarYear.CaoZi">
+            <summary>
+            草子几分
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarYear.GengTian">
+            <summary>
+            几牛耕田（正月第一个丑日是初几，就是几牛耕田）
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarYear.HuaShou">
+            <summary>
+            花收几分
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarYear.ZhiShui">
+            <summary>
+            几龙治水（正月第一个辰日是初几，就是几龙治水）
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarYear.TuoGu">
+            <summary>
+            几马驮谷
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarYear.QiangMi">
+            <summary>
+            几鸡抢米
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarYear.KanCan">
+            <summary>
+            几姑看蚕
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarYear.GongZhu">
+            <summary>
+            几屠共猪
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarYear.JiaTian">
+            <summary>
+            甲田几分
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarYear.FenBing">
+            <summary>
+            几人分饼（正月第一个丙日是初几，就是几人分饼）
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarYear.DeJin">
+            <summary>
+            几日得金（正月第一个辛日是初几，就是几日得金）
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarYear.RenBing">
+            <summary>
+            几人几丙
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarYear.RenChu">
+            <summary>
+            几人几锄
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarYear.Yuan">
+            <summary>
+            三元
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarYear.Yun">
+            <summary>
+            九运
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarYear.NineStar">
+            <summary>
+            九星
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarYear.PositionXi">
+            <summary>
+            喜神方位，如艮
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarYear.PositionXiDesc">
+            <summary>
+            喜神方位描述，如东北
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarYear.PositionYangGui">
+            <summary>
+            阳贵神方位，如艮
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarYear.PositionYangGuiDesc">
+            <summary>
+            阳贵神方位描述，如东北
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarYear.PositionYinGui">
+            <summary>
+            阴贵神方位，如艮
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarYear.PositionYinGuiDesc">
+            <summary>
+            阴贵神方位描述，如东北
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarYear.PositionFu">
+            <summary>
+            福神方位，如艮（流派2）
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarYear.PositionFuDesc">
+            <summary>
+            福神方位描述，如东北（流派2）
+            </summary>
+        </member>
+        <member name="M:Lunar.LunarYear.GetPositionFu(System.Int32)">
+            <summary>
+            获取福神方位
+            </summary>
+            <param name="sect">流派，1或2</param>
+            <returns>方位，如艮</returns>
+        </member>
+        <member name="M:Lunar.LunarYear.GetPositionFuDesc(System.Int32)">
+            <summary>
+            获取福神方位描述
+            </summary>
+            <param name="sect">流派，1或2</param>
+            <returns>方位描述，如东北</returns>
+        </member>
+        <member name="P:Lunar.LunarYear.PositionCai">
+            <summary>
+            财神方位，如艮
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarYear.PositionCaiDesc">
+            <summary>
+            财神方位描述，如东北
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarYear.PositionTaiSui">
+            <summary>
+            太岁方位，如艮
+            </summary>
+        </member>
+        <member name="P:Lunar.LunarYear.PositionTaiSuiDesc">
+            <summary>
+            太岁方位描述，如东北
+            </summary>
+        </member>
+        <member name="M:Lunar.LunarYear.Next(System.Int32)">
+            <summary>
+            往后推几年的阴历年，如果要往前推，则年数用负数
+            </summary>
+            <param name="n">年数</param>
+            <returns>阴历年</returns>
+        </member>
+        <member name="T:Lunar.NineStar">
+            <summary>
+            九星
+            </summary>
+        </member>
+        <member name="F:Lunar.NineStar.NUMBER">
+            <summary>
+            九数
+            </summary>
+        </member>
+        <member name="F:Lunar.NineStar.COLOR">
+            <summary>
+            七色
+            </summary>
+        </member>
+        <member name="F:Lunar.NineStar.WU_XING">
+            <summary>
+            五行
+            </summary>
+        </member>
+        <member name="F:Lunar.NineStar.POSITION">
+            <summary>
+            后天八卦方位
+            </summary>
+        </member>
+        <member name="F:Lunar.NineStar.NAME_BEI_DOU">
+            <summary>
+            北斗九星
+            </summary>
+        </member>
+        <member name="F:Lunar.NineStar.NAME_XUAN_KONG">
+            <summary>
+            玄空九星（玄空风水）
+            </summary>
+        </member>
+        <member name="F:Lunar.NineStar.NAME_QI_MEN">
+            <summary>
+            奇门九星（奇门遁甲，也称天盘九星）
+            </summary>
+        </member>
+        <member name="F:Lunar.NineStar.BA_MEN_QI_MEN">
+            <summary>
+            八门（奇门遁甲）
+            </summary>
+        </member>
+        <member name="F:Lunar.NineStar.NAME_TAI_YI">
+            <summary>
+            太乙九神（太乙神数）
+            </summary>
+        </member>
+        <member name="F:Lunar.NineStar.TYPE_TAI_YI">
+            <summary>
+            太乙九神对应类型
+            </summary>
+        </member>
+        <member name="F:Lunar.NineStar.SONG_TAI_YI">
+            <summary>
+            太乙九神歌诀（太乙神数）
+            </summary>
+        </member>
+        <member name="F:Lunar.NineStar.LUCK_XUAN_KONG">
+            <summary>
+            吉凶（玄空风水）
+            </summary>
+        </member>
+        <member name="F:Lunar.NineStar.LUCK_QI_MEN">
+            <summary>
+            吉凶（奇门遁甲）
+            </summary>
+        </member>
+        <member name="F:Lunar.NineStar.YIN_YANG_QI_MEN">
+            <summary>
+            阴阳（奇门遁甲）
+            </summary>
+        </member>
+        <member name="P:Lunar.NineStar.Index">
+            <summary>
+            序号
+            </summary>
+        </member>
+        <member name="M:Lunar.NineStar.#ctor(System.Int32)">
+            <summary>
+            初始化
+            </summary>
+            <param name="index">序号</param>
+        </member>
+        <member name="M:Lunar.NineStar.FromIndex(System.Int32)">
+            <summary>
+            初始化
+            </summary>
+            <param name="index">序号</param>
+            <returns>九星</returns>
+        </member>
+        <member name="P:Lunar.NineStar.Number">
+            <summary>
+            九数
+            </summary>
+        </member>
+        <member name="P:Lunar.NineStar.Color">
+            <summary>
+            七色
+            </summary>
+        </member>
+        <member name="P:Lunar.NineStar.WuXing">
+            <summary>
+            五行
+            </summary>
+        </member>
+        <member name="P:Lunar.NineStar.Position">
+            <summary>
+            方位
+            </summary>
+        </member>
+        <member name="P:Lunar.NineStar.PositionDesc">
+            <summary>
+            方位描述
+            </summary>
+        </member>
+        <member name="P:Lunar.NineStar.NameInXuanKong">
+            <summary>
+            玄空九星名称
+            </summary>
+        </member>
+        <member name="P:Lunar.NineStar.NameInBeiDou">
+            <summary>
+            北斗九星名称
+            </summary>
+        </member>
+        <member name="P:Lunar.NineStar.NameInQiMen">
+            <summary>
+            奇门九星名称
+            </summary>
+        </member>
+        <member name="P:Lunar.NineStar.NameInTaiYi">
+            <summary>
+            太乙九神名称
+            </summary>
+        </member>
+        <member name="P:Lunar.NineStar.LuckInQiMen">
+            <summary>
+            奇门九星吉凶
+            </summary>
+        </member>
+        <member name="P:Lunar.NineStar.LuckInXuanKong">
+            <summary>
+            玄空九星吉凶
+            </summary>
+        </member>
+        <member name="P:Lunar.NineStar.YinYangInQiMen">
+            <summary>
+            奇门九星阴阳
+            </summary>
+        </member>
+        <member name="P:Lunar.NineStar.TypeInTaiYi">
+            <summary>
+            太乙九神类型
+            </summary>
+        </member>
+        <member name="P:Lunar.NineStar.BaMenInQiMen">
+            <summary>
+            八门（奇门遁甲）
+            </summary>
+        </member>
+        <member name="P:Lunar.NineStar.SongInTaiYi">
+            <summary>
+            太乙九神歌诀
+            </summary>
+        </member>
+        <member name="M:Lunar.NineStar.ToString">
+            <inheritdoc />
+        </member>
+        <member name="P:Lunar.NineStar.FullString">
+            <summary>
+            完整字符串输出
+            </summary>
+        </member>
+        <member name="T:Lunar.ShuJiu">
+            <summary>
+            数九
+            </summary>
+        </member>
+        <member name="P:Lunar.ShuJiu.Name">
+            <summary>
+            名称，如一九、二九
+            </summary>
+        </member>
+        <member name="P:Lunar.ShuJiu.Index">
+            <summary>
+            当前数九第几天，1-9
+            </summary>
+        </member>
+        <member name="M:Lunar.ShuJiu.#ctor">
+            <summary>
+            初始化
+            </summary>
+        </member>
+        <member name="M:Lunar.ShuJiu.#ctor(System.String,System.Int32)">
+            <summary>
+            初始化
+            </summary>
+            <param name="name">名称</param>
+            <param name="index">当前数九第几天，1-9</param>
+        </member>
+        <member name="P:Lunar.ShuJiu.FullString">
+            <summary>
+            完整字符串输出
+            </summary>
+        </member>
+        <member name="M:Lunar.ShuJiu.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:Lunar.Solar">
+            <summary>
+            阳历日期
+            </summary>
+        </member>
+        <member name="F:Lunar.Solar.J2000">
+            <summary>
+            2000年儒略日数(2000-1-1 12:00:00 UTC)
+            </summary>
+        </member>
+        <member name="P:Lunar.Solar.Year">
+            <summary>
+            年
+            </summary>
+        </member>
+        <member name="P:Lunar.Solar.Month">
+            <summary>
+            月
+            </summary>
+        </member>
+        <member name="P:Lunar.Solar.Day">
+            <summary>
+            日
+            </summary>
+        </member>
+        <member name="P:Lunar.Solar.Hour">
+            <summary>
+            时
+            </summary>
+        </member>
+        <member name="P:Lunar.Solar.Minute">
+            <summary>
+            分
+            </summary>
+        </member>
+        <member name="P:Lunar.Solar.Second">
+            <summary>
+            秒
+            </summary>
+        </member>
+        <member name="M:Lunar.Solar.#ctor">
+            <summary>
+            默认使用当前日期初始化
+            </summary>
+        </member>
+        <member name="M:Lunar.Solar.#ctor(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            通过年月日时分初始化
+            </summary>
+            <param name="year">年</param>
+            <param name="month">月，1到12</param>
+            <param name="day">日，1到31</param>
+            <param name="hour">小时，0到23</param>
+            <param name="minute">分钟，0到59</param>
+            <param name="second">秒钟，0到59</param>
+        </member>
+        <member name="M:Lunar.Solar.#ctor(System.DateTime)">
+            <summary>
+            通过日期初始化
+            </summary>
+            <param name="date">日期</param>
+        </member>
+        <member name="M:Lunar.Solar.#ctor(System.Double)">
+            <summary>
+            通过儒略日初始化
+            </summary>
+            <param name="julianDay">儒略日</param>
+        </member>
+        <member name="M:Lunar.Solar.FromYmdHms(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            通过指定年月日时分获取阳历
+            </summary>
+            <param name="year">年</param>
+            <param name="month">月，1到12</param>
+            <param name="day">日，1到31</param>
+            <param name="hour">小时，0到23</param>
+            <param name="minute">分钟，0到59</param>
+            <param name="second">秒钟，0到59</param>
+            <returns>阳历</returns>
+        </member>
+        <member name="M:Lunar.Solar.FromDate(System.DateTime)">
+            <summary>
+            通过指定日期获取阳历
+            </summary>
+            <param name="date">日期</param>
+            <returns>阳历</returns>
+        </member>
+        <member name="M:Lunar.Solar.FromJulianDay(System.Double)">
+            <summary>
+            通过指定儒略日获取阳历
+            </summary>
+            <param name="julianDay">儒略日</param>
+            <returns>阳历</returns>
+        </member>
+        <member name="M:Lunar.Solar.FromBaZi(System.String,System.String,System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            通过八字获取阳历列表
+            </summary>
+            <param name="yearGanZhi">年柱</param>
+            <param name="monthGanZhi">月柱</param>
+            <param name="dayGanZhi">日柱</param>
+            <param name="timeGanZhi">时柱</param>
+            <param name="sect">流派，2晚子时日柱按当天，1晚子时日柱按明天</param>
+            <param name="baseYear">起始年</param>
+            <returns>符合的阳历列表</returns>
+        </member>
+        <member name="P:Lunar.Solar.LeapYear">
+            <summary>
+            是否闰年
+            </summary>
+        </member>
+        <member name="P:Lunar.Solar.Week">
+            <summary>
+            星期，0代表周日，1代表周一
+            </summary>
+        </member>
+        <member name="P:Lunar.Solar.WeekInChinese">
+            <summary>
+            星期的中文：日一二三四五六
+            </summary>
+        </member>
+        <member name="P:Lunar.Solar.XingZuo">
+            <summary>
+            星座
+            </summary>
+        </member>
+        <member name="P:Lunar.Solar.Festivals">
+            <summary>
+            节日，有可能一天会有多个节日
+            </summary>
+        </member>
+        <member name="P:Lunar.Solar.OtherFestivals">
+            <summary>
+            非正式节日
+            </summary>
+        </member>
+        <member name="P:Lunar.Solar.Lunar">
+            <summary>
+            阴历
+            </summary>
+        </member>
+        <member name="P:Lunar.Solar.JulianDay">
+            <summary>
+            儒略日
+            </summary>
+        </member>
+        <member name="M:Lunar.Solar.ToString">
+            <inheritdoc />
+        </member>
+        <member name="P:Lunar.Solar.Ymd">
+            <summary>
+            yyyy-MM-dd
+            </summary>
+        </member>
+        <member name="P:Lunar.Solar.YmdHms">
+            <summary>
+            yyyy-MM-dd HH:mm:ss
+            </summary>
+        </member>
+        <member name="P:Lunar.Solar.FullString">
+            <summary>
+            完整字符串输出
+            </summary>
+        </member>
+        <member name="M:Lunar.Solar.Subtract(Lunar.Solar)">
+            <summary>
+            阳历日期相减，获得相差天数
+            </summary>
+            <param name="solar">阳历</param>
+            <returns>天数</returns>
+        </member>
+        <member name="M:Lunar.Solar.SubtractMinute(Lunar.Solar)">
+            <summary>
+            阳历日期相减，获得相差分钟数
+            </summary>
+            <param name="solar">阳历</param>
+            <returns>分钟数</returns>
+        </member>
+        <member name="M:Lunar.Solar.IsAfter(Lunar.Solar)">
+            <summary>
+            是否在指定日期之后
+            </summary>
+            <param name="solar">阳历</param>
+            <returns>true/false</returns>
+        </member>
+        <member name="M:Lunar.Solar.IsBefore(Lunar.Solar)">
+            <summary>
+            是否在指定日期之前
+            </summary>
+            <param name="solar">阳历</param>
+            <returns>true/false</returns>
+        </member>
+        <member name="M:Lunar.Solar.NextYear(System.Int32)">
+            <summary>
+            年推移
+            </summary>
+            <param name="years">年数</param>
+            <returns>阳历</returns>
+        </member>
+        <member name="M:Lunar.Solar.NextMonth(System.Int32)">
+            <summary>
+            月推移
+            </summary>
+            <param name="months">月数</param>
+            <returns>阳历</returns>
+        </member>
+        <member name="M:Lunar.Solar.NextDay(System.Int32)">
+            <summary>
+            日推移
+            </summary>
+            <param name="days">天数</param>
+            <returns>阳历</returns>
+        </member>
+        <member name="M:Lunar.Solar.Next(System.Int32,System.Boolean)">
+            <summary>
+            获取往后推几天的阳历日期，如果要往前推，则天数用负数
+            </summary>
+            <param name="days">天数</param>
+            <param name="onlyWorkday">是否仅工作日</param>
+            <returns>阳历日期</returns>
+        </member>
+        <member name="M:Lunar.Solar.NextHour(System.Int32)">
+            <summary>
+            小时推移
+            </summary>
+            <param name="hours">小时数</param>
+            <returns>阳历</returns>
+        </member>
+        <member name="M:Lunar.Solar.GetSalaryRate">
+            <summary>
+            获取薪资比例(感谢 https://gitee.com/smr1987)
+            </summary>
+            <returns>薪资比例：1/2/3</returns>
+        </member>
+        <member name="T:Lunar.SolarHalfYear">
+            <summary>
+            阳历半年
+            </summary>
+        </member>
+        <member name="P:Lunar.SolarHalfYear.Year">
+            <summary>
+            年
+            </summary>
+        </member>
+        <member name="P:Lunar.SolarHalfYear.Month">
+            <summary>
+            月
+            </summary>
+        </member>
+        <member name="F:Lunar.SolarHalfYear.MONTH_COUNT">
+            <summary>
+            半年的月数
+            </summary>
+        </member>
+        <member name="M:Lunar.SolarHalfYear.#ctor">
+            <summary>
+            默认当前日期
+            </summary>
+        </member>
+        <member name="M:Lunar.SolarHalfYear.#ctor(System.DateTime)">
+            <summary>
+            通过日期初始化
+            </summary>
+            <param name="date">日期</param>
+        </member>
+        <member name="M:Lunar.SolarHalfYear.#ctor(System.Int32,System.Int32)">
+            <summary>
+            通过年月初始化
+            </summary>
+            <param name="year">年</param>
+            <param name="month">月</param>
+        </member>
+        <member name="M:Lunar.SolarHalfYear.FromDate(System.DateTime)">
+            <summary>
+            通过指定日期获取阳历半年
+            </summary>
+            <param name="date">日期</param>
+            <returns>阳历半年</returns>
+        </member>
+        <member name="M:Lunar.SolarHalfYear.FromYm(System.Int32,System.Int32)">
+            <summary>
+            通过指定年月获取阳历半年
+            </summary>
+            <param name="year">年</param>
+            <param name="month">月</param>
+            <returns>阳历半年</returns>
+        </member>
+        <member name="P:Lunar.SolarHalfYear.Index">
+            <summary>
+            半年序号，从1开始
+            </summary>
+        </member>
+        <member name="M:Lunar.SolarHalfYear.Next(System.Int32)">
+            <summary>
+            半年推移
+            </summary>
+            <param name="halfYears">推移的半年数，负数为倒推</param>
+            <returns>推移后的半年</returns>
+        </member>
+        <member name="P:Lunar.SolarHalfYear.Months">
+            <summary>
+            获取本半年的月份
+            </summary>
+            <returns>本半年的月份列表</returns>
+        </member>
+        <member name="M:Lunar.SolarHalfYear.ToString">
+            <inheritdoc />
+        </member>
+        <member name="P:Lunar.SolarHalfYear.FullString">
+            <summary>
+            完整字符串输出
+            </summary>
+        </member>
+        <member name="T:Lunar.SolarMonth">
+            <summary>
+            阳历月
+            </summary>
+        </member>
+        <member name="P:Lunar.SolarMonth.Year">
+            <summary>
+            年
+            </summary>
+        </member>
+        <member name="P:Lunar.SolarMonth.Month">
+            <summary>
+            月
+            </summary>
+        </member>
+        <member name="M:Lunar.SolarMonth.#ctor">
+            <summary>
+            默认日期
+            </summary>
+        </member>
+        <member name="M:Lunar.SolarMonth.#ctor(System.DateTime)">
+            <summary>
+            通过日期初始化
+            </summary>
+            <param name="date">日期</param>
+        </member>
+        <member name="M:Lunar.SolarMonth.#ctor(System.Int32,System.Int32)">
+            <summary>
+            通过年月初始化
+            </summary>
+            <param name="year">年</param>
+            <param name="month">月</param>
+        </member>
+        <member name="M:Lunar.SolarMonth.FromDate(System.DateTime)">
+            <summary>
+            通过指定日期获取阳历月
+            </summary>
+            <param name="date">日期</param>
+            <returns>阳历月</returns>
+        </member>
+        <member name="M:Lunar.SolarMonth.FromYm(System.Int32,System.Int32)">
+            <summary>
+            通过指定年月获取阳历月
+            </summary>
+            <param name="year">年</param>
+            <param name="month">月</param>
+            <returns>阳历月</returns>
+        </member>
+        <member name="P:Lunar.SolarMonth.Days">
+            <summary>
+            本月的阳历日期列表
+            </summary>
+        </member>
+        <member name="M:Lunar.SolarMonth.GetWeeks(System.Int32)">
+            <summary>
+            获取本月的阳历周列表
+            </summary>
+            <param name="start">星期几作为一周的开始，1234560分别代表星期一至星期天</param>
+            <returns>周列表</returns>
+        </member>
+        <member name="M:Lunar.SolarMonth.Next(System.Int32)">
+            <summary>
+            获取往后推几个月的阳历月，如果要往前推，则月数用负数
+            </summary>
+            <param name="months">月数</param>
+            <returns>阳历月</returns>
+        </member>
+        <member name="M:Lunar.SolarMonth.ToString">
+            <inheritdoc />
+        </member>
+        <member name="P:Lunar.SolarMonth.FullString">
+            <summary>
+            完整字符串输出
+            </summary>
+        </member>
+        <member name="T:Lunar.SolarSeason">
+            <summary>
+            阳历季度
+            </summary>
+        </member>
+        <member name="P:Lunar.SolarSeason.Year">
+            <summary>
+            年
+            </summary>
+        </member>
+        <member name="P:Lunar.SolarSeason.Month">
+            <summary>
+            月
+            </summary>
+        </member>
+        <member name="F:Lunar.SolarSeason.MONTH_COUNT">
+            <summary>
+            一个季度的月数
+            </summary>
+        </member>
+        <member name="M:Lunar.SolarSeason.#ctor">
+            <summary>
+            默认当前日期
+            </summary>
+        </member>
+        <member name="M:Lunar.SolarSeason.#ctor(System.DateTime)">
+            <summary>
+            通过日期初始化
+            </summary>
+            <param name="date">日期</param>
+        </member>
+        <member name="M:Lunar.SolarSeason.#ctor(System.Int32,System.Int32)">
+            <summary>
+            通过年月初始化
+            </summary>
+            <param name="year">年</param>
+            <param name="month">月</param>
+        </member>
+        <member name="M:Lunar.SolarSeason.FromDate(System.DateTime)">
+            <summary>
+            通过指定日期获取阳历季度
+            </summary>
+            <param name="date">日期</param>
+            <returns>阳历季度</returns>
+        </member>
+        <member name="M:Lunar.SolarSeason.FromYm(System.Int32,System.Int32)">
+            <summary>
+            通过指定年月获取阳历季度
+            </summary>
+            <param name="year">年</param>
+            <param name="month">月</param>
+            <returns>阳历季度</returns>
+        </member>
+        <member name="P:Lunar.SolarSeason.Index">
+            <summary>
+            当月是第几季度，从1开始
+            </summary>
+        </member>
+        <member name="M:Lunar.SolarSeason.Next(System.Int32)">
+            <summary>
+            推移
+            </summary>
+            <param name="seasons">推移的季度数，负数为倒推</param>
+            <returns>推移后的季度</returns>
+        </member>
+        <member name="P:Lunar.SolarSeason.Months">
+            <summary>
+            本季度的月份列表
+            </summary>
+        </member>
+        <member name="M:Lunar.SolarSeason.ToString">
+            <inheritdoc />
+        </member>
+        <member name="P:Lunar.SolarSeason.FullString">
+            <summary>
+            完整字符串输出
+            </summary>
+        </member>
+        <member name="T:Lunar.SolarWeek">
+            <summary>
+            阳历周
+            </summary>
+        </member>
+        <member name="P:Lunar.SolarWeek.Year">
+            <summary>
+            年
+            </summary>
+        </member>
+        <member name="P:Lunar.SolarWeek.Month">
+            <summary>
+            月
+            </summary>
+        </member>
+        <member name="P:Lunar.SolarWeek.Day">
+            <summary>
+            日
+            </summary>
+        </member>
+        <member name="P:Lunar.SolarWeek.Start">
+            <summary>
+            星期几作为一周的开始，1234560分别代表星期一至星期天
+            </summary>
+        </member>
+        <member name="M:Lunar.SolarWeek.#ctor(System.Int32)">
+            <summary>
+            默认当月
+            </summary>
+            <param name="start">星期几作为一周的开始，1234560分别代表星期一至星期天</param>
+        </member>
+        <member name="M:Lunar.SolarWeek.#ctor(System.DateTime,System.Int32)">
+            <summary>
+            通过日期初始化
+            </summary>
+            <param name="date">日期</param>
+            <param name="start">星期几作为一周的开始，1234560分别代表星期一至星期天</param>
+        </member>
+        <member name="M:Lunar.SolarWeek.#ctor(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            通过年月初始化
+            </summary>
+            <param name="year">年</param>
+            <param name="month">月，1到12</param>
+            <param name="day">日，1到31</param>
+            <param name="start">星期几作为一周的开始，1234560分别代表星期一至星期天</param>
+        </member>
+        <member name="M:Lunar.SolarWeek.FromDate(System.DateTime,System.Int32)">
+            <summary>
+            通过指定日期获取阳历周
+            </summary>
+            <param name="date">日期</param>
+            <param name="start">星期几作为一周的开始，1234560分别代表星期一至星期天</param>
+            <returns>阳历周</returns>
+        </member>
+        <member name="M:Lunar.SolarWeek.FromYmd(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            通过指定年月日获取阳历周
+            </summary>
+            <param name="year">年</param>
+            <param name="month">月，1到12</param>
+            <param name="day">日，1到31</param>
+            <param name="start">星期几作为一周的开始，1234560分别代表星期一至星期天</param>
+            <returns>阳历周</returns>
+        </member>
+        <member name="P:Lunar.SolarWeek.Index">
+            <summary>
+            当前日期是在当月第几周，从1开始
+            </summary>
+        </member>
+        <member name="P:Lunar.SolarWeek.IndexInYear">
+            <summary>
+            当前日期是在当年第几周，从1开始
+            </summary>
+        </member>
+        <member name="M:Lunar.SolarWeek.Next(System.Int32,System.Boolean)">
+            <summary>
+            周推移
+            </summary>
+            <param name="weeks">推移的周数，负数为倒推</param>
+            <param name="separateMonth">是否按月单独计算</param>
+            <returns>推移后的阳历周</returns>
+        </member>
+        <member name="P:Lunar.SolarWeek.FirstDay">
+            <summary>
+            本周第一天的阳历日期（可能跨月）
+            </summary>
+        </member>
+        <member name="P:Lunar.SolarWeek.FirstDayInMonth">
+            <summary>
+            本周第一天的阳历日期（仅限当月）
+            </summary>
+        </member>
+        <member name="P:Lunar.SolarWeek.Days">
+            <summary>
+            本周的阳历日期列表（可能跨月）
+            </summary>
+        </member>
+        <member name="P:Lunar.SolarWeek.DaysInMonth">
+            <summary>
+            本周的阳历日期列表（仅限当月）
+            </summary>
+        </member>
+        <member name="M:Lunar.SolarWeek.ToString">
+            <inheritdoc />
+        </member>
+        <member name="P:Lunar.SolarWeek.FullString">
+            <summary>
+            完整字符串输出
+            </summary>
+        </member>
+        <member name="T:Lunar.SolarYear">
+            <summary>
+            阳历年
+            </summary>
+        </member>
+        <member name="P:Lunar.SolarYear.Year">
+            <summary>
+            年
+            </summary>
+        </member>
+        <member name="F:Lunar.SolarYear.MONTH_COUNT">
+            <summary>
+            一年的月数
+            </summary>
+        </member>
+        <member name="M:Lunar.SolarYear.#ctor">
+            <summary>
+            默认当年
+            </summary>
+        </member>
+        <member name="M:Lunar.SolarYear.#ctor(System.DateTime)">
+            <summary>
+            通过日期初始化
+            </summary>
+            <param name="date">日期</param>
+        </member>
+        <member name="M:Lunar.SolarYear.#ctor(System.Int32)">
+            <summary>
+            通过年初始化
+            </summary>
+            <param name="year">年</param>
+        </member>
+        <member name="M:Lunar.SolarYear.FromDate(System.DateTime)">
+            <summary>
+            通过指定日期获取阳历年
+            </summary>
+            <param name="date">日期</param>
+            <returns>阳历年</returns>
+        </member>
+        <member name="M:Lunar.SolarYear.FromYear(System.Int32)">
+            <summary>
+            通过指定年份获取阳历年
+            </summary>
+            <param name="year">年</param>
+            <returns>阳历年</returns>
+        </member>
+        <member name="P:Lunar.SolarYear.Months">
+            <summary>
+            本年的阳历月列表
+            </summary>
+        </member>
+        <member name="M:Lunar.SolarYear.Next(System.Int32)">
+            <summary>
+            获取往后推几年的阳历年，如果要往前推，则年数用负数
+            </summary>
+            <param name="years">年数</param>
+            <returns>阳历年</returns>
+        </member>
+        <member name="M:Lunar.SolarYear.ToString">
+            <inheritdoc />
+        </member>
+        <member name="P:Lunar.SolarYear.FullString">
+            <summary>
+            完整字符串输出
+            </summary>
+        </member>
+        <member name="T:Lunar.Tao">
+            <summary>
+            道历
+            </summary>
+        </member>
+        <member name="F:Lunar.Tao.BIRTH_YEAR">
+            <summary>
+            生年
+            </summary>
+        </member>
+        <member name="P:Lunar.Tao.Lunar">
+            <summary>
+            阴历
+            </summary>
+        </member>
+        <member name="M:Lunar.Tao.#ctor(Lunar.Lunar)">
+            <summary>
+            初始化
+            </summary>
+            <param name="lunar">阴历</param>
+        </member>
+        <member name="M:Lunar.Tao.FromLunar(Lunar.Lunar)">
+            <summary>
+            初始化
+            </summary>
+            <param name="lunar">阴历</param>
+            <returns>道历</returns>
+        </member>
+        <member name="M:Lunar.Tao.FromYmdHms(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            初始化
+            </summary>
+            <param name="year">阴历年</param>
+            <param name="month">阴历月</param>
+            <param name="day">阴历日</param>
+            <param name="hour">小时</param>
+            <param name="minute">分钟</param>
+            <param name="second">秒钟</param>
+            <returns>道历</returns>
+        </member>
+        <member name="P:Lunar.Tao.Year">
+            <summary>
+            年
+            </summary>
+        </member>
+        <member name="P:Lunar.Tao.Month">
+            <summary>
+            月
+            </summary>
+        </member>
+        <member name="P:Lunar.Tao.Day">
+            <summary>
+            日
+            </summary>
+        </member>
+        <member name="P:Lunar.Tao.YearInChinese">
+            <summary>
+            中文年
+            </summary>
+        </member>
+        <member name="P:Lunar.Tao.MonthInChinese">
+            <summary>
+            中文月
+            </summary>
+        </member>
+        <member name="P:Lunar.Tao.DayInChinese">
+            <summary>
+            中文日
+            </summary>
+        </member>
+        <member name="P:Lunar.Tao.Festivals">
+            <summary>
+            节日
+            </summary>
+        </member>
+        <member name="P:Lunar.Tao.DaySanHui">
+            <summary>
+            是否三会日
+            </summary>
+        </member>
+        <member name="P:Lunar.Tao.DaySanYuan">
+            <summary>
+            是否三元日
+            </summary>
+        </member>
+        <member name="P:Lunar.Tao.DayWuLa">
+            <summary>
+            是否五腊日
+            </summary>
+        </member>
+        <member name="P:Lunar.Tao.DayBaJie">
+            <summary>
+            是否八节日
+            </summary>
+        </member>
+        <member name="P:Lunar.Tao.DayBaHui">
+            <summary>
+            是否八会日
+            </summary>
+        </member>
+        <member name="P:Lunar.Tao.DayMingWu">
+            <summary>
+            是否明戊日
+            </summary>
+        </member>
+        <member name="P:Lunar.Tao.DayAnWu">
+            <summary>
+            是否暗戊日
+            </summary>
+        </member>
+        <member name="P:Lunar.Tao.DayWu">
+            <summary>
+            是否戊日
+            </summary>
+        </member>
+        <member name="P:Lunar.Tao.DayTianShe">
+            <summary>
+            是否天赦日
+            </summary>
+        </member>
+        <member name="P:Lunar.Tao.FullString">
+            <summary>
+            完整字符串输出
+            </summary>
+        </member>
+        <member name="M:Lunar.Tao.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:Lunar.TaoFestival">
+            <summary>
+            道历节日
+            </summary>
+        </member>
+        <member name="P:Lunar.TaoFestival.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Lunar.TaoFestival.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="M:Lunar.TaoFestival.#ctor(System.String,System.String)">
+            <summary>
+            初始化
+            </summary>
+            <param name="name">名称</param>
+            <param name="remark">备注</param>
+        </member>
+        <member name="M:Lunar.TaoFestival.ToString">
+            <inheritdoc />
+        </member>
+        <member name="P:Lunar.TaoFestival.FullString">
+            <summary>
+            完整字符串输出
+            </summary>
+        </member>
+        <member name="T:Lunar.Util.FotoUtil">
+            <summary>
+            佛历工具
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.FotoUtil.DAY_ZHAI_GUAN_YIN">
+            <summary>
+            观音斋日期
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.FotoUtil.FESTIVAL">
+            <summary>
+            因果犯忌
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.FotoUtil.OTHER_FESTIVAL">
+            <summary>
+            纪念日
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.FotoUtil.XIU_27">
+            <summary>
+            27星宿，佛教从印度传入中国，印度把28星宿改为27星宿，把牛宿(牛金牛)纳入了女宿(女土蝠)。
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.FotoUtil.XIU_OFFSET">
+            <summary>
+            每月初一的27星宿偏移
+            </summary>
+        </member>
+        <member name="M:Lunar.Util.FotoUtil.GetXiu(System.Int32,System.Int32)">
+            <summary>
+            获取27星宿
+            </summary>
+            <param name="month">佛历月</param>
+            <param name="day">佛历日</param>
+            <returns>星宿</returns>
+        </member>
+        <member name="T:Lunar.Util.HolidayUtil">
+            <summary>
+            法定节假日工具（自2001年12月29日起）
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.HolidayUtil.SIZE">
+            <summary>
+            数据段长度
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.HolidayUtil.ZERO">
+            <summary>
+            0
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.HolidayUtil.TAG_REMOVE">
+            <summary>
+            删除标识
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.HolidayUtil.NAMES">
+            <summary>
+            节假日名称（元旦0，春节1，清明2，劳动3，端午4，中秋5，国庆6，国庆中秋7，抗战胜利日8）
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.HolidayUtil.DATA">
+            <summary>
+            节假日数据，日期YYYYMMDD+名称下标+是否调休+对应节日YYYYMMDD
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.HolidayUtil.NAMES_IN_USE">
+            <summary>
+            使用的节假日名称
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.HolidayUtil.DATA_IN_USE">
+            <summary>
+            使用的节假日数据
+            </summary>
+        </member>
+        <member name="M:Lunar.Util.HolidayUtil.GetHoliday(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            获取指定年月日的节假日信息，如果不存在，返回null
+            </summary>
+            <param name="year">年</param>
+            <param name="month">月，1-12</param>
+            <param name="day">日，1-31</param>
+            <returns>节假日</returns>
+        </member>
+        <member name="M:Lunar.Util.HolidayUtil.GetHoliday(System.String)">
+            <summary>
+            获取指定年月日的节假日信息，如果不存在，返回null
+            </summary>
+            <param name="ymd">年月日</param>
+            <returns>节假日</returns>
+        </member>
+        <member name="M:Lunar.Util.HolidayUtil.GetHolidays(System.Int32,System.Int32)">
+            <summary>
+            获取指定年月的节假日列表
+            </summary>
+            <param name="year">年</param>
+            <param name="month">月，1-12</param>
+            <returns>节假日列表</returns>
+        </member>
+        <member name="M:Lunar.Util.HolidayUtil.GetHolidays(System.Int32)">
+            <summary>
+            获取指定年的节假日列表
+            </summary>
+            <param name="year">年</param>
+            <returns>节假日列表</returns>
+        </member>
+        <member name="M:Lunar.Util.HolidayUtil.GetHolidays(System.String)">
+            <summary>
+            获取指定年月日的节假日列表
+            </summary>
+            <param name="ymd">年、年月、年月日</param>
+            <returns>节假日列表</returns>
+        </member>
+        <member name="M:Lunar.Util.HolidayUtil.GetHolidaysByTarget(System.String)">
+            <summary>
+            获取指定节日（仅节日当天）的相关节假日列表
+            </summary>
+            <param name="ymd">年月日</param>
+            <returns>节假日列表</returns>
+        </member>
+        <member name="M:Lunar.Util.HolidayUtil.GetHolidaysByTarget(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            获取指定节日（仅节日当天）的相关节假日列表
+            </summary>
+            <param name="year">年</param>
+            <param name="month">月</param>
+            <param name="day">日</param>
+            <returns>节假日列表</returns>
+        </member>
+        <member name="M:Lunar.Util.HolidayUtil.Fix(System.String[],System.String)">
+            <summary>
+            修正或追加节假日数据。节假日名称下标从0开始，超过9的，按ASCII码表依次往后排列；调休标识0为上班，否则放假
+            </summary>
+            <param name="names">用于替换默认的节假日名称列表，传null即可使用默认名称</param>
+            <param name="data">需要修正或追加的节假日数据，每18位表示1天依次排列，格式：当天年月日YYYYMMDD(8位)+节假日名称下标(1位)+调休标识(1位)+节假日当天YYYYMMDD(8位)。例：202005023120200501代表2020-05-02为劳动节放假，对应节假日为2020-05-01</param>
+        </member>
+        <member name="M:Lunar.Util.HolidayUtil.Fix(System.String)">
+            <summary>
+            使用默认的节假日名称来修正或追加节假日数据。节假日名称下标从0开始，最大为8(元旦节0，春节1，清明节2，劳动节3，端午节4，中秋节5，国庆节6，国庆中秋7，抗战胜利日8)；调休标识0为上班，否则放假
+            </summary>
+            <param name="data">需要修正或追加的节假日数据，每18位表示1天依次排列，格式：当天年月日YYYYMMDD(8位)+节假日名称下标(1位)+调休标识(1位)+节假日当天YYYYMMDD(8位)。例：202005023120200501代表2020-05-02为劳动节放假，对应节假日为2020-05-01</param>
+        </member>
+        <member name="T:Lunar.Util.LunarUtil">
+            <summary>
+            农历工具
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.BASE_MONTH_ZHI_INDEX">
+            <summary>
+            月份地支偏移量，因正月起寅
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.XUN">
+            <summary>
+            旬
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.XUN_KONG">
+            <summary>
+            旬空
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.LIU_YAO">
+            <summary>
+            六曜
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.HOU">
+            <summary>
+            候
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.WU_HOU">
+            <summary>
+            物候
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.GAN">
+            <summary>
+            天干
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.POSITION_XI">
+            <summary>
+            喜神方位，《喜神方位歌》：甲己在艮乙庚乾，丙辛坤位喜神安。丁壬只在离宫坐，戊癸原在在巽间。
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.POSITION_YANG_GUI">
+            <summary>
+            阳贵方位，《阳贵神歌》：甲戊坤艮位，乙己是坤坎，庚辛居离艮，丙丁兑与乾，震巽属何日，壬癸贵神安。
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.POSITION_YIN_GUI">
+            <summary>
+            阴贵方位，《阴贵神歌》：甲戊见牛羊，乙己鼠猴乡，丙丁猪鸡位，壬癸蛇兔藏，庚辛逢虎马，此是贵神方。
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.POSITION_FU">
+            <summary>
+            《福神方位歌》流派1：甲乙东南是福神，丙丁正东是堪宜，戊北己南庚辛坤，壬在乾方癸在西。
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.POSITION_FU_2">
+             <summary>
+            《福神方位歌》流派2：甲己正北是福神，丙辛西北乾宫存，乙庚坤位戊癸艮，丁壬巽上好追寻。
+             </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.POSITION_CAI">
+            <summary>
+            财神方位，《财神方位歌》：甲乙东北是财神，丙丁向在西南寻，戊己正北坐方位，庚辛正东去安身，壬癸原来正南坐，便是财神方位真。
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.POSITION_TAI_DAY">
+            <summary>
+            逐日胎神方位
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.POSITION_TAI_MONTH">
+            <summary>
+            逐月胎神方位
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.POSITION_TAI_SUI_YEAR">
+            <summary>
+            年太岁方位
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.POSITION_GAN">
+            <summary>
+            天干方位
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.POSITION_ZHI">
+            <summary>
+            地支方位
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.ZHI">
+            <summary>
+            地支
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.JIA_ZI">
+            <summary>
+            六十甲子
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.ZHI_XING">
+            <summary>
+            十二值星
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.TIAN_SHEN">
+            <summary>
+            十二天神
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.YI_JI">
+            <summary>
+            宜忌
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.DAY_YI_JI">
+            <summary>
+            每日宜忌数据
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.TIME_YI_JI">
+            <summary>
+            时辰宜忌数据
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.SHEN_SHA">
+            <summary>
+            神煞
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.DAY_SHEN_SHA">
+            <summary>
+            每日神煞数据
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.PENGZU_GAN">
+            <summary>
+            彭祖百忌.天干
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.PENGZU_ZHI">
+            <summary>
+            彭祖百忌.地支
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.NUMBER">
+            <summary>
+            数字
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.MONTH">
+            <summary>
+            月
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.SEASON">
+            <summary>
+            季节
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.SHENGXIAO">
+            <summary>
+            生效
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.DAY">
+            <summary>
+            日
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.YUE_XIANG">
+            <summary>
+            月相
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.CHONG">
+            <summary>
+            地支相冲（子午相冲，丑未相冲，寅申相冲，辰戌相冲，卯酉相冲，巳亥相冲），由于地支对应十二生肖，也就对应了生肖相冲
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.CHONG_GAN">
+            <summary>
+            天干相冲之无情之克（阳克阳，阴克阴）
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.CHONG_GAN_TIE">
+            <summary>
+            天干相冲之有情之克（阳克阴，阴克阳）
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.CHONG_GAN_4">
+            <summary>
+            天干四冲
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.HE_GAN_5">
+            <summary>
+            天干五合
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.HE_ZHI_6">
+            <summary>
+            地支六合
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.ZHI_TIAN_SHEN_OFFSET">
+            <summary>
+            月份地支对应天神偏移下标
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.TIAN_SHEN_TYPE">
+            <summary>
+            天神类型：黄道，黑道
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.LU">
+            <summary>
+            禄（甲禄在寅，乙禄在卯，丙戊禄在巳、丁己禄在午、庚禄在申、辛禄在酉、壬禄在亥、癸禄在子）
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.TIAN_SHEN_TYPE_LUCK">
+            <summary>
+            天神类型吉凶
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.FESTIVAL">
+            <summary>
+            节日
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.OTHER_FESTIVAL">
+            <summary>
+            非正式节日
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.XIU">
+            <summary>
+            28星宿对照表，地支+星期
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.XIU_LUCK">
+            <summary>
+            星宿对应吉凶
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.XIU_SONG">
+            <summary>
+            星宿歌
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.SHOU">
+            <summary>
+            兽
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.SHA">
+            <summary>
+            煞
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.POSITION_DESC">
+            <summary>
+            方位描述
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.GONG">
+            <summary>
+            宫
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.ZHENG">
+            <summary>
+            政
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.ANIMAL">
+            <summary>
+            动物
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.WU_XING_GAN">
+            <summary>
+            天干五行
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.WU_XING_ZHI">
+            <summary>
+            地支五行
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.NAYIN">
+            <summary>
+            纳音
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.SHI_SHEN">
+            <summary>
+            十神，天干+天干为键
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.LunarUtil.ZHI_HIDE_GAN">
+            <summary>
+            地支藏干表，分别为主气、余气、杂气
+            </summary>
+        </member>
+        <member name="M:Lunar.Util.LunarUtil.GetTimeZhiIndex(System.String)">
+            <summary>
+            获取HH:mm时刻的地支序号，非法的时刻返回0
+            </summary>
+            <param name="hm">HH:mm时刻</param>
+            <returns>地支序号，0到11</returns>
+        </member>
+        <member name="M:Lunar.Util.LunarUtil.ConvertTime(System.String)">
+            <summary>
+            将HH:mm时刻转换为时辰（地支），非法的时刻返回子
+            </summary>
+            <param name="hm">HH:mm时刻</param>
+            <returns>时辰(地支)，如子</returns>
+        </member>
+        <member name="M:Lunar.Util.LunarUtil.Hex(System.Int32)">
+            <summary>
+            数字转十六进制
+            </summary>
+            <param name="n">数字</param>
+            <returns>十六进制</returns>
+        </member>
+        <member name="M:Lunar.Util.LunarUtil.GetJiaZiIndex(System.String)">
+            <summary>
+            获取干支对应的甲子序号
+            </summary>
+            <param name="ganZhi">干支</param>
+            <returns>甲子序号</returns>
+        </member>
+        <member name="M:Lunar.Util.LunarUtil.GetDayYi(System.String,System.String)">
+            <summary>
+            获取日宜
+            </summary>
+            <param name="monthGanZhi">月干支</param>
+            <param name="dayGanZhi">日干支</param>
+            <returns>宜</returns>
+        </member>
+        <member name="M:Lunar.Util.LunarUtil.GetDayJi(System.String,System.String)">
+            <summary>
+            获取日忌
+            </summary>
+            <param name="monthGanZhi">月干支</param>
+            <param name="dayGanZhi">日干支</param>
+            <returns>忌</returns>
+        </member>
+        <member name="M:Lunar.Util.LunarUtil.GetDayJiShen(System.Int32,System.String)">
+            <summary>
+            获取日吉神
+            </summary>
+            <param name="monthZhiIndex">月地支序号</param>
+            <param name="dayGanZhi">日干支</param>
+            <returns>日吉神</returns>
+        </member>
+        <member name="M:Lunar.Util.LunarUtil.GetDayXiongSha(System.Int32,System.String)">
+            <summary>
+            获取日凶煞
+            </summary>
+            <param name="monthZhiIndex">月地支序号</param>
+            <param name="dayGanZhi">日干支</param>
+            <returns>日凶煞</returns>
+        </member>
+        <member name="M:Lunar.Util.LunarUtil.GetTimeYi(System.String,System.String)">
+            <summary>
+            获取时辰宜
+            </summary>
+            <param name="dayGanZhi">日干支</param>
+            <param name="timeGanZhi">时干支</param>
+            <returns>宜</returns>
+        </member>
+        <member name="M:Lunar.Util.LunarUtil.GetTimeJi(System.String,System.String)">
+            <summary>
+            获取时辰忌
+            </summary>
+            <param name="dayGanZhi">日干支</param>
+            <param name="timeGanZhi">时干支</param>
+            <returns>忌</returns>
+        </member>
+        <member name="M:Lunar.Util.LunarUtil.find(System.String,System.String[],System.Int32)">
+            <summary>
+            获取名称对应的下标
+            </summary>
+            <param name="name">名称</param>
+            <param name="names">名称列表</param>
+            <param name="offset">偏移值</param>
+            <returns>下标</returns>
+        </member>
+        <member name="M:Lunar.Util.LunarUtil.GetXunIndex(System.String)">
+            <summary>
+            获取干支所在旬下标，0-5
+            </summary>
+            <param name="ganZhi">干支</param>
+            <returns>旬下标，0-5</returns>
+        </member>
+        <member name="M:Lunar.Util.LunarUtil.GetXun(System.String)">
+            <summary>
+            获取干支所在旬
+            </summary>
+            <param name="ganZhi">干支</param>
+            <returns>旬</returns>
+        </member>
+        <member name="M:Lunar.Util.LunarUtil.GetXunKong(System.String)">
+            <summary>
+            获取干支所在旬对应的旬空(空亡)
+            </summary>
+            <param name="ganZhi">干支</param>
+            <returns>旬空(空亡)</returns>
+        </member>
+        <member name="T:Lunar.Util.ShouXingUtil">
+            <summary>
+            寿星天文历工具（https://github.com/sxwnl/sxwnl）
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.ShouXingUtil.PI_2">
+            <summary>
+            2π
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.ShouXingUtil.ONE_THIRD">
+            <summary>
+            1/3
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.ShouXingUtil.SECOND_PER_DAY">
+            <summary>
+            1天对应的秒数
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.ShouXingUtil.SECOND_PER_RAD">
+            <summary>
+            1弧度对应的角秒
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.ShouXingUtil.NUT_B">
+            <summary>
+            中精度章动计算表
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.ShouXingUtil.XL0">
+            <summary>
+            星历数据表
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.ShouXingUtil.XL1">
+            <summary>
+            月亮星历数据表
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.ShouXingUtil.QI_KB">
+            <summary>
+            气直线拟合参数
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.ShouXingUtil.SHUO_KB">
+            <summary>
+            朔直线拟合参数
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.ShouXingUtil.QB">
+            <summary>
+            气修正表
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.ShouXingUtil.SB">
+            <summary>
+            朔修正表
+            </summary>
+        </member>
+        <member name="M:Lunar.Util.ShouXingUtil.decode(System.String)">
+            <summary>
+            气朔解压
+            </summary>
+            <param name="s">气朔压缩数据</param>
+            <returns>解压后数据</returns>
+        </member>
+        <member name="M:Lunar.Util.ShouXingUtil.NutationLon2(System.Double)">
+            <summary>
+            黄经章动计算
+            </summary>
+            <param name="t">世纪数</param>
+            <returns>黄经章动</returns>
+        </member>
+        <member name="M:Lunar.Util.ShouXingUtil.ELon(System.Double,System.Int32)">
+            <summary>
+            地球经度计算
+            </summary>
+            <param name="t">世纪数</param>
+            <param name="n">取项数</param>
+            <returns>Date分点黄经</returns>
+        </member>
+        <member name="M:Lunar.Util.ShouXingUtil.MLon(System.Double,System.Int32)">
+            <summary>
+            月球经度计算
+            </summary>
+            <param name="t">世纪数</param>
+            <param name="n">项数比例</param>
+            <returns>Date分点黄经</returns>
+        </member>
+        <member name="M:Lunar.Util.ShouXingUtil.GxcSunLon(System.Double)">
+            <summary>
+            太阳光行差计算
+            </summary>
+            <param name="t">世纪数</param>
+            <returns>太阳光行差</returns>
+        </member>
+        <member name="M:Lunar.Util.ShouXingUtil.Ev(System.Double)">
+            <summary>
+            地球速度计算，误差小于万分三
+            </summary>
+            <param name="t">世纪数</param>
+            <returns>地球速度</returns>
+        </member>
+        <member name="M:Lunar.Util.ShouXingUtil.SaLon(System.Double,System.Int32)">
+            <summary>
+            太阳视黄经计算
+            </summary>
+            <param name="t"></param>
+            <param name="n"></param>
+            <returns>太阳视黄经</returns>
+        </member>
+        <member name="M:Lunar.Util.ShouXingUtil.DtExt(System.Double,System.Double)">
+            <summary>
+            
+            </summary>
+            <param name="y"></param>
+            <param name="jsd"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Lunar.Util.ShouXingUtil.DtCalc(System.Double)">
+            <summary>
+            
+            </summary>
+            <param name="y"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Lunar.Util.ShouXingUtil.DtT(System.Double)">
+            <summary>
+            
+            </summary>
+            <param name="t"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Lunar.Util.ShouXingUtil.Mv(System.Double)">
+            <summary>
+            月球速度计算
+            </summary>
+            <param name="t">世经数</param>
+            <returns>月球速度</returns>
+        </member>
+        <member name="M:Lunar.Util.ShouXingUtil.SaLonT(System.Double)">
+            <summary>
+            已知太阳视黄经反求时间
+            </summary>
+            <param name="w">太阳视黄经</param>
+            <returns>时间</returns>
+        </member>
+        <member name="M:Lunar.Util.ShouXingUtil.MsaLon(System.Double,System.Int32,System.Int32)">
+            <summary>
+            月日视黄经的差值计算
+            </summary>
+            <param name="t"></param>
+            <param name="mn"></param>
+            <param name="sn"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Lunar.Util.ShouXingUtil.SaLonT2(System.Double)">
+            <summary>
+            已知太阳视黄经反求时间，高速低精度，最大误差不超过600秒
+            </summary>
+            <param name="w">太阳视黄经</param>
+            <returns>时间</returns>
+        </member>
+        <member name="M:Lunar.Util.ShouXingUtil.MsaLonT(System.Double)">
+            <summary>
+            已知月日视黄经差求时间
+            </summary>
+            <param name="w">月日视黄经差</param>
+            <returns>时间</returns>
+        </member>
+        <member name="M:Lunar.Util.ShouXingUtil.MsaLonT2(System.Double)">
+            <summary>
+            已知月日视黄经差求时间，高速低精度，误差不超过600秒(只验算了几千年)
+            </summary>
+            <param name="w">月日视黄经差</param>
+            <returns>时间</returns>
+        </member>
+        <member name="M:Lunar.Util.ShouXingUtil.QiHigh(System.Double)">
+            <summary>
+            较高精度定气计算
+            </summary>
+            <param name="w"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Lunar.Util.ShouXingUtil.ShuoHigh(System.Double)">
+            <summary>
+            较高精度定朔计算
+            </summary>
+            <param name="w"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Lunar.Util.ShouXingUtil.QiLow(System.Double)">
+            <summary>
+            低精度定朔计算，最大误差小于30分钟，平均5分
+            </summary>
+            <param name="w"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Lunar.Util.ShouXingUtil.ShuoLow(System.Double)">
+            <summary>
+            低精度定朔计算，在2000至600年，误差2小时以内(仍比古代日历精准很多)
+            </summary>
+            <param name="w"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Lunar.Util.ShouXingUtil.CalcShuo(System.Double)">
+            <summary>
+            计算朔
+            </summary>
+            <param name="jd">儒略日</param>
+            <returns>儒略日</returns>
+        </member>
+        <member name="M:Lunar.Util.ShouXingUtil.CalcQi(System.Double)">
+            <summary>
+            计算气
+            </summary>
+            <param name="jd">儒略日</param>
+            <returns>儒略日</returns>
+        </member>
+        <member name="M:Lunar.Util.ShouXingUtil.QiAccurate(System.Double)">
+            <summary>
+            精确的气计算
+            </summary>
+            <param name="w">儒略日</param>
+            <returns>儒略日</returns>
+        </member>
+        <member name="M:Lunar.Util.ShouXingUtil.QiAccurate2(System.Double)">
+            <summary>
+            更精确的气计算
+            </summary>
+            <param name="jd">儒略日</param>
+            <returns>儒略日</returns>
+        </member>
+        <member name="T:Lunar.Util.SolarUtil">
+            <summary>
+            阳历工具
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.SolarUtil.WEEK">
+            <summary>
+            星期
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.SolarUtil.DAYS_OF_MONTH">
+            <summary>
+            每月天数
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.SolarUtil.XING_ZUO">
+            <summary>
+            星座
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.SolarUtil.FESTIVAL">
+            <summary>
+            节日
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.SolarUtil.WEEK_FESTIVAL">
+            <summary>
+            按星期的节日
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.SolarUtil.OTHER_FESTIVAL">
+            <summary>
+            非正式节日
+            </summary>
+        </member>
+        <member name="M:Lunar.Util.SolarUtil.IsLeapYear(System.Int32)">
+            <summary>
+            是否闰年
+            </summary>
+            <param name="year">年</param>
+            <returns>true/false 闰年/非闰年</returns>
+        </member>
+        <member name="M:Lunar.Util.SolarUtil.GetDaysOfYear(System.Int32)">
+            <summary>
+            获取某年有多少天（平年365天，闰年366天）
+            </summary>
+            <param name="year">年</param>
+            <returns>天数</returns>
+        </member>
+        <member name="M:Lunar.Util.SolarUtil.GetDaysOfMonth(System.Int32,System.Int32)">
+            <summary>
+            获取某年某月有多少天
+            </summary>
+            <param name="year">年</param>
+            <param name="month">月</param>
+            <returns>天数</returns>
+        </member>
+        <member name="M:Lunar.Util.SolarUtil.GetDaysInYear(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            获取某天为当年的第几天
+            </summary>
+            <param name="year">年</param>
+            <param name="month">月</param>
+            <param name="day">日</param>
+            <returns>第几天</returns>
+        </member>
+        <member name="M:Lunar.Util.SolarUtil.GetWeeksOfMonth(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            获取某年某月有多少周
+            </summary>
+            <param name="year">年</param>
+            <param name="month">月</param>
+            <param name="start">星期几作为一周的开始，1234560分别代表星期一至星期天</param>
+            <returns>周数</returns>
+        </member>
+        <member name="M:Lunar.Util.SolarUtil.GetDaysBetween(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            获取两个日期之间相差的天数（如果日期a比日期b小，天数为正，如果日期a比日期b大，天数为负）
+            </summary>
+            <param name="ay">年a</param>
+            <param name="am">月a</param>
+            <param name="ad">日a</param>
+            <param name="by">年b</param>
+            <param name="bm">月b</param>
+            <param name="bd">日b</param>
+            <returns>天数</returns>
+        </member>
+        <member name="T:Lunar.Util.TaoUtil">
+            <summary>
+            道历工具
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.TaoUtil.SAN_HUI">
+            <summary>
+            三会日
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.TaoUtil.SAN_YUAN">
+            <summary>
+            三元日
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.TaoUtil.WU_LA">
+            <summary>
+            五腊日
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.TaoUtil.AN_WU">
+            <summary>
+            暗戊
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.TaoUtil.BA_HUI">
+            <summary>
+            八会日
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.TaoUtil.BA_JIE">
+            <summary>
+            八节日
+            </summary>
+        </member>
+        <member name="F:Lunar.Util.TaoUtil.FESTIVAL">
+            <summary>
+            节日
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,35 @@
+{
+  "retrieved": "2026-11-09",
+  "files": [
+    {
+      "path": "data/2025.json",
+      "url": "https://raw.githubusercontent.com/NateScarlet/holiday-cn/master/2025.json",
+      "sha256": "33e3023d3af27e158d31196a3cc5096aa089ecd5cd33280fb0b92cd9c9d180c9"
+    },
+    {
+      "path": "data/2026.json",
+      "url": "https://raw.githubusercontent.com/NateScarlet/holiday-cn/master/2026.json",
+      "sha256": "0dcfd8004351e132ce15e8444de4df123265b3f490f7e2f8346631122cb5b709"
+    },
+    {
+      "path": "data/2027.json",
+      "url": "https://raw.githubusercontent.com/NateScarlet/holiday-cn/master/2027.json",
+      "sha256": "1dec7120abb4c328cc88bf596ac5ef448b5d674c1840fa244b2da4a303c1bb9d"
+    },
+    {
+      "path": "lib/lunar.dll",
+      "url": "https://api.nuget.org/v3-flatcontainer/lunar-csharp/1.6.9/lunar-csharp.1.6.9.nupkg",
+      "sha256": "9a049ac8c4b0f02ce0e9ab1f52107ad46f80682a3496c6059446e1a67f47a8d6"
+    },
+    {
+      "path": "lib/lunar-csharp.LICENSE",
+      "url": "https://raw.githubusercontent.com/6tail/lunar-csharp/master/LICENSE",
+      "sha256": "5078831ce40ebaf0ff5c96cfae7f63f9271a547b5b21c6b14cff6f5d33a90876"
+    },
+    {
+      "path": "lib/holiday-cn.LICENSE",
+      "url": "https://raw.githubusercontent.com/NateScarlet/holiday-cn/master/LICENSE",
+      "sha256": "234e246330285b6589ff2be2381d4ae71fac39b11b1882fd1f6bda6d6f46c4c6"
+    }
+  ]
+}

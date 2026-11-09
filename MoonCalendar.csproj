@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net48</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <EnableDefaultPageItems>false</EnableDefaultPageItems>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>assets\app.ico</ApplicationIcon>
+    <AssemblyName>MoonCalendar</AssemblyName>
+    <RootNamespace>MoonCalendar</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="src\*.cs"/>
+    <Reference Include="System.Web.Extensions"/>
+    <Reference Include="UIAutomationClient"/>
+    <Reference Include="UIAutomationTypes"/>
+    <Reference Include="lunar"><HintPath>lib\lunar.dll</HintPath><Private>false</Private></Reference>
+    <EmbeddedResource Include="lib\lunar.dll"><LogicalName>lunar.dll</LogicalName></EmbeddedResource>
+    <EmbeddedResource Include="src\MainWindow.xaml"><LogicalName>MainWindow.xaml</LogicalName></EmbeddedResource>
+    <EmbeddedResource Include="assets\app.ico"><LogicalName>app.ico</LogicalName></EmbeddedResource>
+    <EmbeddedResource Include="data\2025.json"><LogicalName>Holidays.2025.json</LogicalName></EmbeddedResource>
+    <EmbeddedResource Include="data\2026.json"><LogicalName>Holidays.2026.json</LogicalName></EmbeddedResource>
+    <EmbeddedResource Include="data\2027.json"><LogicalName>Holidays.2027.json</LogicalName></EmbeddedResource>
+  </ItemGroup>
+</Project>

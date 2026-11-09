@@ -1,0 +1,17 @@
+bin/
+obj/
+dist/
+.vs/
+*.user
+*.suo
+/*.zip
+*.log
+.env
+.env.*
+!.env.example
+.tools/
+lib/*.nupkg
+lib/*-source.zip
+lib/netstandard.dll
+verification/*
+!verification/.gitkeep
