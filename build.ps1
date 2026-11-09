@@ -1,3 +1,5 @@
+param([string]$OutputDirectory)
+
 $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version Latest
 $projectRoot = $PSScriptRoot
@@ -7,7 +9,7 @@ $facade = Join-Path $env:WINDIR 'Microsoft.NET\assembly\GAC_MSIL\netstandard\v4.
 if (!(Test-Path -LiteralPath $compiler) -or !(Test-Path -LiteralPath $facade)) {
     throw '需要 Windows .NET Framework 4.8。Windows 10/11 通常已预装。'
 }
-$outputDirectory = Join-Path $projectRoot 'dist'
+$outputDirectory = if ([String]::IsNullOrEmpty($OutputDirectory)) { Join-Path $projectRoot 'dist' } else { [System.IO.Path]::GetFullPath($OutputDirectory) }
 New-Item -ItemType Directory -Path $outputDirectory -Force | Out-Null
 $binary = Join-Path $outputDirectory 'MoonCalendar.exe'
 $compilerArgs = @('/nologo', '/target:winexe', '/platform:anycpu', '/optimize+', '/utf8output', '/codepage:65001', "/out:$binary", "/win32manifest:$(Join-Path $projectRoot 'app.manifest')", "/win32icon:$(Join-Path $projectRoot 'assets\app.ico')")

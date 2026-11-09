@@ -33,18 +33,29 @@ namespace MoonCalendar
         private Window settingsWindow;
         private TaskbarClockIntegration taskbarIntegration;
         private bool popupMode;
+        private bool openingPopup;
+        private int popupVersion;
+        private bool startupHidePending;
         private readonly bool startHidden;
+        private readonly bool uiTest;
+        private readonly bool traceWindow;
+        private readonly Queue<object> windowEvents = new Queue<object>();
+        internal int LoadCount { get; private set; }
         private readonly TimeZoneInfo chinaZone = TimeZoneInfo.FindSystemTimeZoneById("China Standard Time");
         private static readonly string[] Weekdays = { "星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六" };
 
-        public CalendarWindow(bool startHidden = false)
+        public CalendarWindow(bool startHidden = false, bool uiTest = false, bool traceWindow = false)
         {
             this.startHidden = startHidden;
+            startupHidePending = startHidden;
+            this.uiTest = uiTest;
+            this.traceWindow = traceWindow;
             preferences = Preferences.Load();
             Window = (Window)XamlReader.Parse(Storage.ReadResource("MainWindow.xaml"));
             using (var iconStream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("app.ico"))
                 Window.Icon = System.Windows.Media.Imaging.BitmapFrame.Create(iconStream, System.Windows.Media.Imaging.BitmapCreateOptions.None, System.Windows.Media.Imaging.BitmapCacheOption.OnLoad);
             Window.Topmost = preferences.AlwaysOnTop;
+            if (startHidden) { Window.ShowActivated = false; Window.ShowInTaskbar = false; }
             var now = Now;
             selected = lastToday = now.Date;
             month = new DateTime(now.Year, now.Month, 1);
@@ -78,34 +89,48 @@ namespace MoonCalendar
                 {
                     e.Cancel = true;
                     if (settingsWindow != null) settingsWindow.Close();
-                    Window.Hide();
+                    HideWindow("close-hide");
                 }
                 Save();
             };
             Window.Closed += (s, e) => { clock.Stop(); weatherTimer.Stop(); if (taskbarIntegration != null) taskbarIntegration.Dispose(); tray.Dispose(); };
             Window.Deactivated += (s, e) =>
             {
-                if (popupMode && settingsWindow == null) Window.Dispatcher.BeginInvoke(new Action(() => { if (popupMode && settingsWindow == null && !Window.IsActive) Window.Hide(); }));
+                RecordWindowState("deactivated");
+                int version = popupVersion;
+                if (popupMode && !openingPopup && !HasOpenDialog) Window.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    if (popupMode && version == popupVersion && !HasOpenDialog && !Window.IsActive) HideWindow("deactivate-hide");
+                }));
             };
+            Window.Activated += (s, e) => RecordWindowState("activated");
+            Window.IsVisibleChanged += (s, e) => RecordWindowState("visibility");
             Window.PreviewKeyDown += (s, e) =>
             {
                 if (e.Key == Key.Left || e.Key == Key.PageUp) { Navigate(-1); e.Handled = true; }
                 if (e.Key == Key.Right || e.Key == Key.PageDown) { Navigate(1); e.Handled = true; }
                 if (e.Key == Key.Home) { GoToday(); e.Handled = true; }
-                if (e.Key == Key.Escape && popupMode) { Window.Hide(); e.Handled = true; }
+                if (e.Key == Key.Escape && popupMode) { HideWindow("escape-hide"); e.Handled = true; }
             };
             clock.Tick += (s, e) => UpdateClock();
             weatherTimer.Tick += async (s, e) => { await RefreshWeather(); await RefreshHolidays(false); };
             Window.Loaded += async (s, e) =>
             {
+                LoadCount++;
+                RecordWindowState("loaded");
+                if (loaded) return;
                 loaded = true;
                 RestorePosition();
                 UpdateClock(); RenderMonth(); RenderWeather(false); UpdatePin();
-                IntegrationMessages.Attach(Window, Show);
-                ApplyTaskbarIntegration();
+                if (!uiTest) { IntegrationMessages.Attach(Window, Show); ApplyTaskbarIntegration(); }
                 clock.Start(); weatherTimer.Start();
-                if (this.startHidden) { Window.ShowInTaskbar = false; Window.Hide(); }
-                await Task.WhenAll(RefreshWeather(), RefreshHolidays(false));
+                // Loaded occurs inside the first native Show. Hide after that Show has
+                // completed so WPF visibility and the HWND cannot disagree at startup.
+                if (this.startHidden) await Window.Dispatcher.InvokeAsync(new Action(() =>
+                {
+                    if (startupHidePending) { startupHidePending = false; HideWindow("startup-hide"); }
+                }), DispatcherPriority.ContextIdle);
+                if (!uiTest) await Task.WhenAll(RefreshWeather(), RefreshHolidays(false));
             };
         }
 
@@ -125,35 +150,72 @@ namespace MoonCalendar
                         source = VisualTreeHelper.GetParent(source);
                     }
                 }
-                try { popupMode = false; Window.ShowInTaskbar = true; Window.DragMove(); } catch (InvalidOperationException) { }
+                try { popupVersion++; popupMode = false; Window.Topmost = preferences.AlwaysOnTop; Window.ShowInTaskbar = true; Window.DragMove(); } catch (InvalidOperationException) { }
             };
         }
-        public void Show() { popupMode = false; Window.ShowInTaskbar = true; Window.Show(); Window.WindowState = WindowState.Normal; Window.Activate(); }
+        public void Show()
+        {
+            startupHidePending = false; popupVersion++; popupMode = false;
+            Window.Topmost = preferences.AlwaysOnTop;
+            Window.ShowActivated = true; Window.ShowInTaskbar = true;
+            Window.WindowState = WindowState.Normal; Window.Show();
+            NativeWindows.Raise(Window); Window.Activate(); NativeWindows.Focus(Window);
+            RecordWindowState("show");
+        }
         private void ApplyTaskbarIntegration()
         {
             if (taskbarIntegration != null) { taskbarIntegration.Dispose(); taskbarIntegration = null; }
             if (preferences.ReplaceSystemCalendar)
             {
-                taskbarIntegration = new TaskbarClockIntegration(Window.Dispatcher, ToggleClockPopup);
+                taskbarIntegration = new TaskbarClockIntegration(Window.Dispatcher, ToggleClockPopup, DismissOnOutsideClick);
                 taskbarIntegration.Start();
             }
         }
-        private void ToggleClockPopup(ClockTarget target)
+        internal void ToggleClockPopup(ClockTarget target)
         {
+            RecordWindowState("clock-click");
             if (settingsWindow != null) { settingsWindow.Activate(); return; }
-            if (popupMode && Window.IsVisible) { Window.Hide(); return; }
-            popupMode = true;
-            GoToday();
-            Window.ShowInTaskbar = false;
-            Window.WindowState = WindowState.Normal;
-            Window.Show(); Window.UpdateLayout();
-            NativeWindows.PlaceAtClock(Window, target);
-            Window.Activate();
-            NativeWindows.Focus(Window);
+            if (popupMode && Window.IsVisible) { HideWindow("clock-hide"); return; }
+            startupHidePending = false; popupVersion++; popupMode = true; openingPopup = true;
+            try
+            {
+                GoToday();
+                Window.ShowActivated = true; Window.ShowInTaskbar = false;
+                // A hook-consumed clock click does not always grant foreground rights.
+                // Keep the popup above other apps even when activation is refused.
+                Window.Topmost = true;
+                Window.WindowState = WindowState.Normal;
+                Window.Show(); Window.UpdateLayout();
+                NativeWindows.PlaceAtClock(Window, target);
+                Window.Activate(); NativeWindows.Focus(Window);
+            }
+            finally { openingPopup = false; }
+            RecordWindowState("clock-show");
         }
-        private void Quit() { quitting = true; if (settingsWindow != null) settingsWindow.Close(); Window.Close(); }
+        internal void DismissOnOutsideClick(NativeWindows.Point point)
+        {
+            if (!popupMode || !Window.IsVisible || openingPopup || HasOpenDialog) return;
+            NativeWindows.Rect bounds;
+            if (NativeWindows.GetWindowRect(new System.Windows.Interop.WindowInteropHelper(Window).Handle, out bounds)
+                && (point.X < bounds.Left || point.X >= bounds.Right || point.Y < bounds.Top || point.Y >= bounds.Bottom)) HideWindow("outside-hide");
+        }
+        private bool HasOpenDialog { get { return settingsWindow != null || Window.OwnedWindows.Cast<Window>().Any(dialog => dialog.IsVisible); } }
+        private void HideWindow(string reason)
+        {
+            popupVersion++; Window.Hide(); Window.Topmost = preferences.AlwaysOnTop;
+            RecordWindowState(reason);
+        }
+        private void RecordWindowState(string reason)
+        {
+            if (!traceWindow) return;
+            windowEvents.Enqueue(new { utc = DateTime.UtcNow, reason = reason, popup = popupMode, visible = Window.IsVisible, active = Window.IsActive, loadCount = LoadCount, native = NativeWindows.CalendarWindowStatus() });
+            while (windowEvents.Count > 32) windowEvents.Dequeue();
+            Storage.Write("window-status.json", windowEvents.ToArray());
+        }
+        internal void Quit() { quitting = true; if (settingsWindow != null) settingsWindow.Close(); Window.Close(); }
         private void Save()
         {
+            if (uiTest) return;
             if (loaded && !popupMode && Window.WindowState == WindowState.Normal) { preferences.Left = Window.Left; preferences.Top = Window.Top; }
             Storage.Write("settings.json", preferences);
         }

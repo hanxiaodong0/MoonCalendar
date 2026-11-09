@@ -15,8 +15,12 @@ git pull --rebase
 ```powershell
 .\build.ps1
 Start-Process .\dist\MoonCalendar.exe -ArgumentList '--self-test', "$PWD\verification\self-test.json" -Wait
+Start-Process .\dist\MoonCalendar.exe -ArgumentList '--ui-self-test', "$PWD\verification\ui-self-test.json" -Wait
 Get-Content .\verification\self-test.json -Encoding UTF8
+Get-Content .\verification\ui-self-test.json -Encoding UTF8
 ```
+
+日历正在运行时，可用 `.\build.ps1 -OutputDirectory "$PWD\verification\candidate"` 单独构建候选版本，再从该目录运行测试；正式替换 `dist/` 前先退出日历。
 
 确认功能和测试结果后，查看并上传改动：
 

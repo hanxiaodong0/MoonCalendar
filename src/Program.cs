@@ -14,8 +14,8 @@ using System.Windows.Threading;
 [assembly: AssemblyDescription("时间、天气、农历与中国法定节假日桌面日历")]
 [assembly: AssemblyCompany("MoonCalendar")]
 [assembly: AssemblyProduct("拾光日历")]
-[assembly: AssemblyVersion("1.1.0.0")]
-[assembly: AssemblyFileVersion("1.1.0.0")]
+[assembly: AssemblyVersion("1.1.1.0")]
+[assembly: AssemblyFileVersion("1.1.1.0")]
 
 namespace MoonCalendar
 {
@@ -47,6 +47,12 @@ namespace MoonCalendar
         private static int Run(string[] args)
         {
             if (args.Length > 1 && args[0] == "--self-test") return SelfTests.Run(args[1]);
+            if (args.Length > 1 && args[0] == "--ui-self-test") return WindowTests.Run(args[1]);
+            if (args.Length > 1 && args[0] == "--window-status")
+            {
+                File.WriteAllText(args[1], Storage.Json.Serialize(NativeWindows.CalendarWindowStatus()), System.Text.Encoding.UTF8);
+                return 0;
+            }
             if (args.Length > 1 && (args[0] == "--enable-windows-integration" || args[0] == "--disable-windows-integration"))
             {
                 bool enable = args[0] == "--enable-windows-integration";
@@ -91,7 +97,7 @@ namespace MoonCalendar
                     MessageBox.Show("遇到一个问题，请重新打开日历。\n" + e.Exception.Message, "拾光日历", MessageBoxButton.OK, MessageBoxImage.Error);
                     app.Shutdown(1);
                 };
-                var calendar = new CalendarWindow(args.Contains("--startup"));
+                var calendar = new CalendarWindow(args.Contains("--startup"), false, args.Contains("--trace-window"));
                 if (args.Length > 1 && args[0] == "--capture")
                 {
                     var capture = new DispatcherTimer { Interval = TimeSpan.FromSeconds(5) };

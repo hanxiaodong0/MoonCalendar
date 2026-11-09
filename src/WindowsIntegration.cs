@@ -138,6 +138,7 @@ namespace MoonCalendar
     {
         private readonly Dispatcher dispatcher;
         private readonly Action<ClockTarget> show;
+        private readonly Action<NativeWindows.Point> outsideClick;
         private readonly ManualResetEvent stop = new ManualResetEvent(false);
         private readonly NativeWindows.MouseProc callback;
         private volatile ClockTarget[] targets = new ClockTarget[0];
@@ -150,9 +151,9 @@ namespace MoonCalendar
         {
             get { return hook == IntPtr.Zero ? "任务栏入口暂未接管，可从托盘打开。" : targets.Length == 0 ? "正在识别任务栏时钟；暂可从托盘打开。" : "任务栏时钟已接管；退出程序即恢复系统日历。"; }
         }
-        public TaskbarClockIntegration(Dispatcher dispatcher, Action<ClockTarget> show)
+        public TaskbarClockIntegration(Dispatcher dispatcher, Action<ClockTarget> show, Action<NativeWindows.Point> outsideClick)
         {
-            this.dispatcher = dispatcher; this.show = show; callback = OnMouse;
+            this.dispatcher = dispatcher; this.show = show; this.outsideClick = outsideClick; callback = OnMouse;
         }
         public void Start()
         {
@@ -204,6 +205,11 @@ namespace MoonCalendar
                     }
                     return new IntPtr(1);
                 }
+                if (kind == 0x0201 || kind == 0x0204 || kind == 0x0207 || kind == 0x020B)
+                {
+                    var point = ((NativeWindows.MouseData)Marshal.PtrToStructure(data, typeof(NativeWindows.MouseData))).Point;
+                    dispatcher.BeginInvoke(new Action(() => { if (!disposed) outsideClick(point); }));
+                }
             }
             return NativeWindows.CallNextHookEx(hook, code, message, data);
         }
@@ -249,6 +255,9 @@ namespace MoonCalendar
         [DllImport("user32.dll")] public static extern bool EnumChildWindows(IntPtr parent, EnumProc callback, IntPtr parameter);
         [DllImport("user32.dll", CharSet = CharSet.Unicode)] private static extern int GetClassName(IntPtr window, StringBuilder text, int count);
         [DllImport("user32.dll")] public static extern bool IsWindowVisible(IntPtr window);
+        [DllImport("user32.dll")] private static extern bool IsIconic(IntPtr window);
+        [DllImport("user32.dll")] private static extern IntPtr GetForegroundWindow();
+        [DllImport("dwmapi.dll")] private static extern int DwmGetWindowAttribute(IntPtr window, int attribute, out int value, int size);
         [DllImport("user32.dll")] public static extern bool GetWindowRect(IntPtr window, out Rect rect);
         [DllImport("user32.dll")] private static extern IntPtr WindowFromPoint(Point point);
         [DllImport("user32.dll")] private static extern IntPtr GetAncestor(IntPtr window, uint flags);
@@ -269,7 +278,15 @@ namespace MoonCalendar
             EnumWindows((window, parameter) => { string name = ClassOf(window); if (name == "Shell_TrayWnd" || name == "Shell_SecondaryTrayWnd") list.Add(window); return true; }, IntPtr.Zero);
             return list;
         }
-        public static void Focus(Window window) { SetForegroundWindow(new WindowInteropHelper(window).Handle); }
+        public static bool Focus(Window window) { return SetForegroundWindow(new WindowInteropHelper(window).Handle); }
+        public static void Raise(Window window) { SetWindowPos(new WindowInteropHelper(window).Handle, IntPtr.Zero, 0, 0, 0, 0, 0x0001 | 0x0002); }
+        public static object CalendarWindowStatus()
+        {
+            var handle = FindWindow(null, "拾光日历");
+            Rect bounds; GetWindowRect(handle, out bounds);
+            int cloaked; int cloakResult = DwmGetWindowAttribute(handle, 14, out cloaked, sizeof(int));
+            return new { found = handle != IntPtr.Zero, handle = handle.ToInt64(), visible = IsWindowVisible(handle), minimized = IsIconic(handle), foreground = GetForegroundWindow() == handle, cloaked = cloakResult == 0 ? (int?)cloaked : null, bounds = bounds };
+        }
         public static void PlaceAtClock(Window window, ClockTarget clock)
         {
             var handle = new WindowInteropHelper(window).Handle;

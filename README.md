@@ -1,6 +1,6 @@
 # 拾光日历
 
-参考你提供的界面制作的原生 Windows 桌面日历：保留深色背景、蓝色今日圆点，当月日期白色高亮，相邻月份日期灰色，默认显示天津天气。当前版本 1.1.0。
+参考你提供的界面制作的原生 Windows 桌面日历：保留深色背景、蓝色今日圆点，当月日期白色高亮，相邻月份日期灰色，默认显示天津天气。当前版本 1.1.1。
 
 <img src="docs/screenshot.png" width="434" alt="拾光日历：固定六行的深色日历界面" />
 
@@ -72,14 +72,17 @@
 
 ```powershell
 Start-Process .\dist\MoonCalendar.exe -ArgumentList '--self-test', "$PWD\verification\self-test.json" -Wait
+Start-Process .\dist\MoonCalendar.exe -ArgumentList '--ui-self-test', "$PWD\verification\ui-self-test.json" -Wait
 Start-Process .\dist\MoonCalendar.exe -ArgumentList '--network-test', "$PWD\verification\network-test.json" -Wait
 ```
 
-`--self-test` 检查农历、节气、闰月、放假补班、天气缓存隔离及 2388 个月的布局。`--network-test` 使用程序自身的网络实现获取天津天气和搜索城市，需要联网。
+`--self-test` 检查农历、节气、闰月、放假补班、天气缓存隔离及 2388 个月的布局。`--ui-self-test` 会短暂显示测试窗口，验证原生窗口的实际隐藏、反复弹出、遮挡和收起；测试不接管任务栏、不修改个人设置。`--network-test` 使用程序自身的网络实现获取天津天气和搜索城市，需要联网。
 
 `--startup` 从托盘模式启动；重复启动 EXE 会唤回现有窗口。`--integration-status <结果.json>` 可只读检查自启动登记及已识别的时钟范围。`--enable-windows-integration <结果.json>` 启用自启动并保存任务栏接管选项；`--disable-windows-integration <结果.json>` 撤销这两项登记，运行中的实例应随后重启以应用。
 
-`verification/` 保存测试结果，输出文件不纳入版本管理。当前版本的 39 项自动检查已通过。`--capture <绝对路径.png>` 可启动程序并在五秒后导出自身 WPF 界面；使用时先退出已运行的日历。
+`verification/` 保存测试结果，输出文件不纳入版本管理。当前版本的 39 项数据检查和 28 项窗口回归检查已通过。`--capture <绝对路径.png>` 可启动程序并在五秒后导出自身 WPF 界面；使用时先退出已运行的日历。
+
+排查窗口不显示时，可运行 `--window-status <结果.json>` 读取日历窗口的原生可见性、前台状态和遮蔽状态。退出已有实例后，使用 `--startup --trace-window` 启动可将最近 32 条窗口状态变化保存在本机的 `window-status.json`；这些诊断不会上传。普通启动默认不记录此文件。
 
 ## 维护
 
